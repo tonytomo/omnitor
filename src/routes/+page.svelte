@@ -4,13 +4,7 @@
 	import type { Log } from '$lib/types/log';
 	import { State } from '$lib/types/record';
 	import { scrollIntoViewInsideElement } from '$lib/utils/dom';
-	import { formatISODate } from '$lib/utils/format';
-	import {
-		calculateMovingAverage,
-		calculateMovingMedian,
-		calculateTrend,
-		toPercent
-	} from '$lib/utils/number';
+	import { calculateMovingAverage, calculateTrend, toPercent } from '$lib/utils/number';
 	import { onMount } from 'svelte';
 
 	let logs: Log[] = [];
@@ -66,12 +60,7 @@
 	}
 
 	function clear() {
-		resetRecord();
-		$record.threshold = { upper: 40, lower: 15 };
 		logs = [];
-		trend = 0;
-		index = 0;
-		interval && clearInterval(interval);
 	}
 
 	$: {
@@ -93,7 +82,9 @@
 	class="items-strecth container mx-auto grid grid-cols-1 gap-2 px-4 py-10 md:grid-cols-2 lg:grid-cols-3"
 >
 	<section class="flex flex-col gap-2">
-		<div class="flex h-80 flex-col justify-end border border-slate-800 bg-slate-900 py-2 pr-2 pl-4">
+		<div
+			class="flex h-56 flex-col justify-end border border-slate-800 bg-slate-900 py-2 pr-2 pl-4 lg:h-80"
+		>
 			<div class="log-container h-min overflow-y-auto">
 				{#each logs as entry}
 					<p class="log font-mono text-sm">
@@ -119,7 +110,9 @@
 		</div>
 	</section>
 	<section class="col-span-1 flex flex-col gap-2 lg:col-span-2">
-		<div class="relative flex h-80 flex-col items-end justify-end border border-slate-800 pr-20">
+		<div
+			class="relative flex h-56 flex-col items-end justify-end border border-slate-800 pr-20 lg:h-80"
+		>
 			<div
 				class="graph-container flex h-full w-full flex-row items-end overflow-x-scroll whitespace-nowrap"
 			>
@@ -150,9 +143,9 @@
 			<button class="btn flex-1" on:click={toggleRecord}>
 				{$record.state === State.STOPPED ? 'Run' : 'Halt'}
 			</button>
-			<button class="btn flex-1">Zoom</button>
+			<button class="btn flex-1">Zoom Out</button>
+			<button class="btn flex-1">Zoom In</button>
 			<button class="btn flex-1">Export</button>
-			<button class="btn flex-1">Import</button>
 		</div>
 	</section>
 </main>
