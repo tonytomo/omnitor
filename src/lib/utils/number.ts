@@ -1,4 +1,9 @@
-export function toPercent(value: number, max: number, min: number) {
+import { getLowerThreshold, getUpperThreshold, setProcess } from '$lib/stores/record-store';
+import { Process } from '$lib/types/record';
+
+export function toPercent(value: number) {
+	const min = getLowerThreshold();
+	const max = getUpperThreshold();
 	return Math.round(((value - min) / (max - min)) * 80 * 10) / 10;
 }
 
@@ -12,24 +17,26 @@ export function calculateTrend(data: number[]) {
 	return trend;
 }
 
-export function calculateMovingAverage(data: number[], blockSize: number, newDatapoint: number) {
-	if (data.length < blockSize) return newDatapoint;
+export function calculateMovingAverage(data: number[], blockSize: number, value: number) {
+	setProcess(Process.MAVG);
+
+	if (data.length < blockSize) return value;
 
 	const temp = data.slice(-blockSize);
-	const sum = temp.reduce((acc, value) => acc + value, 0) - temp[0] + newDatapoint;
+	const sum = temp.reduce((acc, value) => acc + value, 0) - temp[0] + value;
 	const average = sum / blockSize;
 
 	return Math.round(average * 10) / 10;
 }
 
-export function calculateMovingMedian(data: number[], blockSize: number, newDatapoint: number) {
-	if (data.length < blockSize) return newDatapoint;
+export function calculateMovingMedian(data: number[], blockSize: number, value: number) {
+	setProcess(Process.MMED);
 
-	const temp = [...data.slice(-blockSize), newDatapoint];
+	if (data.length < blockSize) return value;
+
+	const temp = [...data.slice(-blockSize), value];
 	const sortedData = temp.sort((a, b) => a - b);
-
 	const uniqueData = [...new Set(sortedData)];
-
 	const medianIndex = Math.floor(uniqueData.length / 2);
 	const median =
 		uniqueData.length % 2 === 0
@@ -37,4 +44,12 @@ export function calculateMovingMedian(data: number[], blockSize: number, newData
 			: uniqueData[medianIndex];
 
 	return Math.round(median * 10) / 10;
+}
+
+export function calculateLinearRegression(intercept: number, slope: number, value: number) {
+	setProcess(Process.LREG);
+
+	const prediction = intercept + slope * value;
+
+	return Math.round(prediction * 10) / 10;
 }

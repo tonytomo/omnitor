@@ -4,11 +4,19 @@ export enum State {
 	ERROR
 }
 
+export enum Process {
+	RAW = 'Raw Data',
+	MAVG = 'Moving Average',
+	MMED = 'Moving Median',
+	LREG = 'Linear Regression'
+}
+
 export interface Record {
 	state: State;
 	name: string;
-	data: number[];
-	dataInPercent: number[];
+	process: Process;
+	rawData: number[];
+	processedData: number[];
 	unit: string;
 	threshold: Threshold;
 }
