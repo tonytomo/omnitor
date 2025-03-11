@@ -19,9 +19,16 @@ export interface Record {
 	processedData: number[];
 	unit: string;
 	threshold: Threshold;
+	setting: Setting;
 }
 
 export interface Threshold {
 	upper: number;
 	lower: number;
+}
+
+export interface Setting {
+	window: number;
+	intercept: number;
+	slope: number;
 }

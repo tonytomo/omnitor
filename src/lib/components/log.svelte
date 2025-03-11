@@ -6,6 +6,11 @@
 
 	let message: string = '';
 
+	function log() {
+		addLog(message);
+		message = '';
+	}
+
 	$: {
 		if ($logs && browser) {
 			setTimeout(() => {
@@ -21,7 +26,7 @@
 	<div class="container-block justify-end bg-slate-900 py-2 pr-2 pl-4">
 		<div class="log-container h-min overflow-y-auto">
 			{#each $logs as entry}
-				<p class="log font-mono text-sm">
+				<p class="log font-mono text-xs">
 					<span class="text-slate-600">> {formatISODate(entry.datetime)} --></span>
 					{entry.message}
 				</p>
@@ -38,21 +43,14 @@
 			autocomplete="off"
 			bind:value={message}
 			on:keyup={(e) => {
-				if (e.key === 'Enter') {
-					addLog(message);
-					message = '';
-				}
+				if (e.key === 'Enter') log();
 			}}
 		/>
-		<button
-			class="btn"
-			on:click={() => {
-				addLog(message);
-				message = '';
-			}}
-		>
-			Send
+		<button aria-label="Send" class="btn btn-blue" on:click={log}>
+			<i class="ri-send-plane-fill"></i>
 		</button>
-		<button class="btn" on:click={clearLog}>Clear</button>
+		<button aria-label="Clear" class="btn btn-red" on:click={clearLog}>
+			<i class="ri-delete-bin-6-fill"></i>
+		</button>
 	</div>
 </section>

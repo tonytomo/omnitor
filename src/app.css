@@ -15,6 +15,16 @@ Utilities
 ::-webkit-scrollbar-thumb:hover {
 	@apply bg-slate-600;
 }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	@apply m-0 appearance-none;
+}
+select {
+	@apply appearance-none;
+}
+select::-ms-expand {
+	@apply hidden;
+}
 
 /*
 Containers
@@ -29,11 +39,35 @@ Containers
 /* 
 Inputs and Buttons
 */
+.form-container {
+	@apply col-span-1 grid grid-cols-1 gap-2 sm:grid-cols-2 md:col-span-2 xl:col-span-3 xl:grid-cols-4;
+}
+.form {
+	@apply flex text-sm;
+}
+.form-label {
+	@apply flex items-center bg-slate-800 px-2;
+}
 .input {
-	@apply w-full border border-slate-800 bg-slate-900 px-4 py-2 text-sm text-white focus:border-slate-500 focus:outline-none;
+	@apply w-full border border-slate-800 bg-slate-950 px-4 py-1 text-sm text-white focus:border-slate-500 focus:outline-none disabled:cursor-not-allowed disabled:border-transparent disabled:bg-transparent disabled:text-slate-800 disabled:hover:bg-transparent;
 }
 .btn {
-	@apply cursor-pointer border border-slate-800 bg-slate-900 px-2 py-2 text-sm text-white hover:bg-slate-800 focus:border-slate-500 focus:outline-none;
+	@apply cursor-pointer px-2 py-1 text-white focus:outline-none disabled:cursor-not-allowed disabled:border-transparent disabled:bg-transparent disabled:text-slate-800 disabled:hover:bg-transparent;
+}
+.btn-base {
+	@apply border border-slate-800 bg-slate-950/50 hover:bg-slate-900/50 focus:border-slate-500;
+}
+.btn-green {
+	@apply border border-green-900 bg-green-950/50 hover:bg-green-900/50 focus:border-green-500;
+}
+.btn-red {
+	@apply border border-red-900 bg-red-950/50 hover:bg-red-900/50 focus:border-red-500;
+}
+.btn-blue {
+	@apply border border-blue-900 bg-blue-950/50 hover:bg-blue-900/50 focus:border-blue-500;
+}
+.btn-info {
+	@apply border border-slate-800 bg-slate-950/50 hover:bg-slate-900/50;
 }
 
 /*
@@ -48,8 +82,11 @@ Charts
 .chart-value {
 	@apply absolute top-1 right-1 flex items-center gap-2 p-2 text-white;
 }
-.chart-bar {
+.chart-container {
 	@apply absolute right-0 bottom-0 flex h-full w-min items-end;
+}
+.chart-bar {
+	@apply bg-gradient-to-b from-0% to-transparent to-40%;
 }
 .chart-legend {
 	@apply absolute right-1 bottom-1 p-2 text-xs;

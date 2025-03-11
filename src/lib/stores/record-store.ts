@@ -8,10 +8,15 @@ const record = writable(<Record>{
 	rawData: [],
 	processedData: [],
 	unit: '',
-	threshold: { upper: 0, lower: 0 }
+	threshold: { upper: 0, lower: 0 },
+	setting: { window: 0, intercept: 0, slope: 0 }
 });
 
 export default record;
+
+export function getProcess() {
+	return get(record).process;
+}
 
 export function addRawData(data: number) {
 	record.update((store) => {
@@ -25,6 +30,26 @@ export function addProcessedData(data: number) {
 		store.processedData.push(data);
 		return store;
 	});
+}
+
+export function getRawData() {
+	return get(record).rawData;
+}
+
+export function getProcessedData() {
+	return get(record).processedData;
+}
+
+export function getWindow() {
+	return get(record).setting.window;
+}
+
+export function getIntercept() {
+	return get(record).setting.intercept;
+}
+
+export function getSlope() {
+	return get(record).setting.slope;
 }
 
 export function getUpperThreshold() {
@@ -58,6 +83,7 @@ export function resetRecord() {
 		store.processedData = [];
 		store.unit = '';
 		store.threshold = { upper: 0, lower: 0 };
+		store.setting = { window: 0, intercept: 0, slope: 0 };
 		return store;
 	});
 }
