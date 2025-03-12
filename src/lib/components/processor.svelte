@@ -8,6 +8,9 @@
 		<span class="form-label">
 			<i class="ri-instance-line"></i>
 		</span>
+		<button aria-label="Info" class="btn btn-info">
+			<i class="ri-information-2-line"></i>
+		</button>
 		<select
 			bind:value={$record.process}
 			class="input col-span-2"
@@ -18,14 +21,14 @@
 			<option value={Process.MMED}>Moving Median</option>
 			<option value={Process.LREG}>Linear Regression</option>
 		</select>
-		<button aria-label="Info" class="btn btn-info">
-			<i class="ri-information-2-line"></i>
-		</button>
 	</label>
 	<label class="form">
 		<span class="form-label">
 			<i class="ri-stack-line"></i>
 		</span>
+		<button aria-label="Info" class="btn btn-info">
+			<i class="ri-information-2-line"></i>
+		</button>
 		<input
 			type="number"
 			bind:value={$record.setting.window}
@@ -34,36 +37,33 @@
 				$record.process === Process.RAW ||
 				$record.process === Process.LREG}
 		/>
-		<button aria-label="Info" class="btn btn-info">
-			<i class="ri-information-2-line"></i>
-		</button>
 	</label>
 	<label class="form">
 		<span class="form-label">
 			<i class="ri-xrp-line"></i>
 		</span>
+		<button aria-label="Info" class="btn btn-info">
+			<i class="ri-information-2-line"></i>
+		</button>
 		<input
 			type="number"
 			bind:value={$record.setting.intercept}
 			class="input col-span-2"
 			disabled={$record.state === State.RUNNING || $record.process !== Process.LREG}
 		/>
-		<button aria-label="Info" class="btn btn-info">
-			<i class="ri-information-2-line"></i>
-		</button>
 	</label>
 	<label class="form">
 		<span class="form-label">
 			<i class="ri-ruler-line"></i>
 		</span>
+		<button aria-label="Info" class="btn btn-info">
+			<i class="ri-information-2-line"></i>
+		</button>
 		<input
 			type="number"
 			bind:value={$record.setting.slope}
 			class="input col-span-2"
 			disabled={$record.state === State.RUNNING || $record.process !== Process.LREG}
 		/>
-		<button aria-label="Info" class="btn btn-info">
-			<i class="ri-information-2-line"></i>
-		</button>
 	</label>
 </section>

@@ -30,7 +30,7 @@ select::-ms-expand {
 Containers
 */
 .container-grid {
-	@apply container mx-auto grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3;
+	@apply container mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3;
 }
 .container-block {
 	@apply relative flex h-56 flex-col border border-slate-800;
@@ -46,13 +46,13 @@ Inputs and Buttons
 	@apply flex text-sm;
 }
 .form-label {
-	@apply flex items-center bg-slate-800 px-2;
+	@apply flex items-center bg-slate-800 px-2 py-1 text-lg;
 }
 .input {
 	@apply w-full border border-slate-800 bg-slate-950 px-4 py-1 text-sm text-white focus:border-slate-500 focus:outline-none disabled:cursor-not-allowed disabled:border-transparent disabled:bg-transparent disabled:text-slate-800 disabled:hover:bg-transparent;
 }
 .btn {
-	@apply cursor-pointer px-2 py-1 text-white focus:outline-none disabled:cursor-not-allowed disabled:border-transparent disabled:bg-transparent disabled:text-slate-800 disabled:hover:bg-transparent;
+	@apply cursor-pointer px-2 py-1 text-lg text-white focus:outline-none disabled:cursor-not-allowed disabled:border-transparent disabled:bg-transparent disabled:text-slate-800 disabled:hover:bg-transparent;
 }
 .btn-base {
 	@apply border border-slate-800 bg-slate-950/50 hover:bg-slate-900/50 focus:border-slate-500;
@@ -67,7 +67,7 @@ Inputs and Buttons
 	@apply border border-blue-900 bg-blue-950/50 hover:bg-blue-900/50 focus:border-blue-500;
 }
 .btn-info {
-	@apply border border-slate-800 bg-slate-950/50 hover:bg-slate-900/50;
+	@apply border border-slate-800 bg-slate-950/50 text-sm text-slate-500 hover:bg-slate-900/50;
 }
 
 /*
@@ -81,6 +81,9 @@ Charts
 }
 .chart-value {
 	@apply absolute top-1 right-1 flex items-center gap-2 p-2 text-white;
+}
+.chart-raw {
+	@apply absolute top-10 right-1 flex items-center gap-2 p-2 text-sm text-slate-500;
 }
 .chart-container {
 	@apply absolute right-0 bottom-0 flex h-full w-min items-end;

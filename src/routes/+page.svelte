@@ -12,7 +12,7 @@
 		$record.name = 'Temperature';
 		$record.unit = '°C';
 		$record.process = Process.RAW;
-		$record.setting = { window: 5, intercept: 0, slope: 1 };
+		$record.setting = { window: 10, intercept: 0, slope: 1 };
 	});
 </script>
 
@@ -21,4 +21,19 @@
 	<Processor />
 	<Graph />
 	<Log />
+
+	<section class="form-container">
+		<div class="border border-slate-900 p-2">
+			<i class="ri-information-2-line"></i>
+		</div>
+		<div class="border border-slate-900 p-2">
+			<i class="ri-information-2-line"></i>
+		</div>
+		<div class="border border-slate-900 p-2">
+			<i class="ri-information-2-line"></i>
+		</div>
+		<div class="border border-slate-900 p-2">
+			<i class="ri-information-2-line"></i>
+		</div>
+	</section>
 </main>

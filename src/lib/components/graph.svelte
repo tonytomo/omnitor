@@ -1,12 +1,17 @@
 <script lang="ts">
 	import { addLog } from '$lib/stores/log-store';
 	import { State } from '$lib/types/record';
-	import record, { addRawData, addProcessedData, setState } from '$lib/stores/record-store';
+	import record, {
+		addRawData,
+		addProcessedData,
+		setState,
+		resetRecord
+	} from '$lib/stores/record-store';
 	import { toPercent, calculateTrend, getRandomNumber, processValue } from '$lib/utils/number';
 
 	const zooms = ['w-2', 'w-3', 'w-4', 'w-5', 'w-6', 'w-7', 'w-8', 'w-9', 'w-10', 'w-11', 'w-12'];
-	const rawFocus = ['opacity-60', 'opacity-60', 'opacity-20'];
-	const processFocus = ['opacity-60', 'opacity-20', 'opacity-60'];
+	const rawFocus = ['opacity-100', 'opacity-100', 'opacity-10'];
+	const processFocus = ['opacity-100', 'opacity-10', 'opacity-100'];
 
 	let index: number = 0;
 	let trend: number = 0;
@@ -32,6 +37,14 @@
 
 		trend = Math.round(calculateTrend() * 10) / 10;
 		index = $record.processedData.length - 1;
+	}
+
+	function resetAll() {
+		resetRecord();
+		rawDataInPercent = [];
+		processDataInPercent = [];
+		trend = 0;
+		index = 0;
 	}
 
 	function toggleFocus() {
@@ -80,7 +93,7 @@
 				{#each $record.processedData as entry, i}
 					<div
 						class={zooms[zoomIndex] +
-							' chart-bar cursor-pointer border-x  border-t-4 border-slate-800 border-t-blue-400 from-blue-400/25 hover:opacity-100 ' +
+							' chart-bar cursor-pointer border-x  border-t-4 border-slate-800 border-t-blue-400 from-blue-400/25 hover:opacity-60 ' +
 							processFocus[focusIndex]}
 						style={`height: ${processDataInPercent[i]}%`}
 					></div>
@@ -99,8 +112,12 @@
 				{/if}
 				{Math.abs(trend)}
 			</h3>
-			<h2 class="text-4xl font-semibold">{$record.processedData[index] || 0}</h2>
-			<h3 class="text-lg font-bold">{$record.unit}</h3>
+			<h2 class="text-4xl font-semibold">
+				{$record.processedData[index] || 0}<span class="font-normal">{$record.unit}</span>
+			</h2>
+		</figure>
+		<figure class="chart-raw">
+			<h2>Raw: {$record.rawData[index] || 0}{$record.unit}</h2>
 		</figure>
 		<figure class="chart-legend">
 			<figcaption class="text-red-400">
@@ -138,6 +155,7 @@
 			aria-label="Delete"
 			disabled={$record.state === State.RUNNING}
 			class="btn btn-red flex-1"
+			on:click={resetAll}
 		>
 			<i class="ri-delete-bin-2-line"></i>
 		</button>
