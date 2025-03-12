@@ -35,6 +35,9 @@ Containers
 .container-block {
 	@apply relative flex h-56 flex-col border border-slate-800;
 }
+.box-info {
+	@apply flex gap-2 border border-teal-900 bg-teal-950/50 p-2 text-2xl;
+}
 
 /* 
 Inputs and Buttons
@@ -83,7 +86,7 @@ Charts
 	@apply absolute top-1 right-1 flex items-center gap-2 p-2 text-white;
 }
 .chart-raw {
-	@apply absolute top-10 right-1 flex items-center gap-2 p-2 text-sm text-slate-500;
+	@apply absolute top-12 right-1 flex items-center gap-2 p-2 text-sm text-slate-500;
 }
 .chart-container {
 	@apply absolute right-0 bottom-0 flex h-full w-min items-end;

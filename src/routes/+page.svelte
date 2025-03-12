@@ -3,7 +3,9 @@
 	import Log from '$lib/components/log.svelte';
 	import Processor from '$lib/components/processor.svelte';
 	import Setting from '$lib/components/setting.svelte';
+	import infos from '$lib/stores/info-store';
 	import record from '$lib/stores/record-store';
+	import type { ToolInfo } from '$lib/types/info';
 	import { Process, State } from '$lib/types/record';
 	import { onMount } from 'svelte';
 
@@ -32,8 +34,12 @@
 		<div class="border border-slate-900 p-2">
 			<i class="ri-information-2-line"></i>
 		</div>
-		<div class="border border-slate-900 p-2">
-			<i class="ri-information-2-line"></i>
+		<div class="box-info">
+			<i class={$infos.icon}></i>
+			<div>
+				<h2 class="text-lg">{$infos.name}</h2>
+				<p class="text-sm">{$infos.definition}</p>
+			</div>
 		</div>
 	</section>
 </main>
