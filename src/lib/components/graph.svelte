@@ -5,6 +5,8 @@
 	import { toPercent, calculateTrend, getRandomNumber, processValue } from '$lib/utils/number';
 
 	const zooms = ['w-2', 'w-3', 'w-4', 'w-5', 'w-6', 'w-7', 'w-8', 'w-9', 'w-10', 'w-11', 'w-12'];
+	const rawFocus = ['opacity-60', 'opacity-60', 'opacity-20'];
+	const processFocus = ['opacity-60', 'opacity-20', 'opacity-60'];
 
 	let index: number = 0;
 	let trend: number = 0;
@@ -12,6 +14,7 @@
 	let rawDataInPercent: number[] = [];
 	let processDataInPercent: number[] = [];
 	let zoomIndex: number = 5;
+	let focusIndex: number = 0;
 
 	async function listenCom() {
 		if ($record.state === State.STOPPED) return;
@@ -31,6 +34,10 @@
 		index = $record.processedData.length - 1;
 	}
 
+	function toggleFocus() {
+		focusIndex = (focusIndex + 1) % 3;
+	}
+
 	function zoomIn() {
 		if (zoomIndex < zooms.length - 1) {
 			zoomIndex++;
@@ -46,7 +53,7 @@
 	function toggleRecord() {
 		if ($record.state === State.STOPPED) {
 			setState(State.RUNNING);
-			interval = setInterval(listenCom, 2000);
+			interval = setInterval(listenCom, 200);
 			addLog('Record started');
 		} else {
 			setState(State.STOPPED);
@@ -64,7 +71,7 @@
 					<div
 						class={zooms[zoomIndex] +
 							' chart-bar border-x border-t-4 border-slate-800 border-t-red-400 from-red-400/25 ' +
-							(i === index ? 'opacity-100' : 'opacity-30')}
+							rawFocus[focusIndex]}
 						style={`height: ${rawDataInPercent[i]}%`}
 					></div>
 				{/each}
@@ -74,7 +81,7 @@
 					<div
 						class={zooms[zoomIndex] +
 							' chart-bar cursor-pointer border-x  border-t-4 border-slate-800 border-t-blue-400 from-blue-400/25 hover:opacity-100 ' +
-							(i === index ? 'opacity-100' : 'opacity-30')}
+							processFocus[focusIndex]}
 						style={`height: ${processDataInPercent[i]}%`}
 					></div>
 				{/each}
@@ -123,6 +130,9 @@
 		</button>
 		<button aria-label="Zoom In" class="btn btn-base flex-1" on:click={zoomIn}>
 			<i class="ri-zoom-in-line"></i>
+		</button>
+		<button aria-label="Focus" class="btn btn-base flex-1" on:click={toggleFocus}>
+			<i class="ri-focus-3-line"></i>
 		</button>
 		<button
 			aria-label="Delete"
