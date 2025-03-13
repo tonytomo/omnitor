@@ -3,6 +3,8 @@
 	import logs, { addLog, clearLog } from '$lib/stores/log-store';
 	import { scrollIntoViewInsideElement } from '$lib/utils/dom';
 	import { formatISODate } from '$lib/utils/format';
+	import Button from '../atoms/button.svelte';
+	import Input from '../atoms/input.svelte';
 
 	let message: string = '';
 
@@ -35,22 +37,12 @@
 	</div>
 
 	<div class="flex gap-2">
-		<input
-			type="text"
-			class="input"
-			name="message"
-			placeholder="Enter message"
-			autocomplete="off"
-			bind:value={message}
-			on:keyup={(e) => {
-				if (e.key === 'Enter') log();
-			}}
-		/>
-		<button aria-label="Send" class="btn btn-blue" on:click={log}>
+		<Input name="message" bind:value={message} onEnter={log} />
+		<Button ariaLabel="Send" color="btn-blue" onClick={log}>
 			<i class="ri-send-plane-line"></i>
-		</button>
-		<button aria-label="Clear" class="btn btn-red" on:click={clearLog}>
+		</Button>
+		<Button ariaLabel="Clear" color="btn-red" onClick={clearLog}>
 			<i class="ri-delete-bin-6-line"></i>
-		</button>
+		</Button>
 	</div>
 </section>

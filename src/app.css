@@ -38,6 +38,9 @@ Containers
 .box-info {
 	@apply flex gap-2 border border-teal-900 bg-teal-950/50 p-2 text-2xl;
 }
+.tooltip {
+	@apply absolute top-[100%] left-0 z-50 flex w-3xs gap-2 border border-slate-600 bg-slate-800 p-2 text-left text-white transition-opacity;
+}
 
 /* 
 Inputs and Buttons
@@ -70,7 +73,7 @@ Inputs and Buttons
 	@apply border border-blue-900 bg-blue-950/50 hover:bg-blue-900/50 focus:border-blue-500;
 }
 .btn-info {
-	@apply border border-slate-800 bg-slate-950/50 text-sm text-slate-500 hover:bg-slate-900/50;
+	@apply relative border border-slate-800 bg-slate-950/50 text-sm text-slate-500 hover:bg-slate-900/50;
 }
 
 /*

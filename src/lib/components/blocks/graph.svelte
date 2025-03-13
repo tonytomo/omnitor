@@ -8,6 +8,7 @@
 		resetRecord
 	} from '$lib/stores/record-store';
 	import { toPercent, calculateTrend, getRandomNumber, processValue } from '$lib/utils/number';
+	import Button from '../atoms/button.svelte';
 
 	const zooms = ['w-2', 'w-3', 'w-4', 'w-5', 'w-6', 'w-7', 'w-8', 'w-9', 'w-10', 'w-11', 'w-12'];
 	const rawFocus = ['opacity-100', 'opacity-100', 'opacity-10'];
@@ -131,40 +132,41 @@
 		</figure>
 	</div>
 	<div class="flex gap-2">
-		<button
-			aria-label={$record.state === State.STOPPED ? 'Run' : 'Halt'}
-			class="btn {$record.state === State.STOPPED ? 'btn-green' : 'btn-red'} flex-1"
-			on:click={toggleRecord}
+		<Button
+			ariaLabel={$record.state === State.STOPPED ? 'Run' : 'Halt'}
+			color={$record.state === State.STOPPED ? 'btn-green' : 'btn-red'}
+			onClick={toggleRecord}
 		>
 			{#if $record.state === State.STOPPED}
 				<i class="ri-play-fill"></i>
 			{:else}
 				<i class="ri-stop-fill"></i>
 			{/if}
-		</button>
-		<button aria-label="Zoom Out" class="btn btn-base flex-1" on:click={zoomOut}>
+		</Button>
+		<Button ariaLabel="Zoom Out" color="btn-base" onClick={zoomOut}>
 			<i class="ri-zoom-out-line"></i>
-		</button>
-		<button aria-label="Zoom In" class="btn btn-base flex-1" on:click={zoomIn}>
+		</Button>
+		<Button ariaLabel="Zoom In" color="btn-base" onClick={zoomIn}>
 			<i class="ri-zoom-in-line"></i>
-		</button>
-		<button aria-label="Focus" class="btn btn-base flex-1" on:click={toggleFocus}>
+		</Button>
+		<Button ariaLabel="Focus" color="btn-base" onClick={toggleFocus}>
 			<i class="ri-focus-3-line"></i>
-		</button>
-		<button
-			aria-label="Delete"
+		</Button>
+		<Button
+			ariaLabel="Delete"
 			disabled={$record.state === State.RUNNING}
-			class="btn btn-red flex-1"
-			on:click={resetAll}
+			color="btn-red"
+			onClick={resetAll}
 		>
 			<i class="ri-delete-bin-2-line"></i>
-		</button>
-		<button
-			aria-label="Export"
+		</Button>
+		<Button
+			ariaLabel="Export"
 			disabled={$record.state === State.RUNNING}
-			class="btn btn-blue flex-1"
+			color="btn-blue"
+			onClick={() => console.log('Export')}
 		>
 			<i class="ri-download-2-line"></i>
-		</button>
+		</Button>
 	</div>
 </section>

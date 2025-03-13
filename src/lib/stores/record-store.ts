@@ -77,13 +77,8 @@ export function setProcess(process: Process) {
 export function resetRecord() {
 	record.update((store) => {
 		store.state = State.STOPPED;
-		store.name = 'Temperature';
-		store.process = Process.RAW;
 		store.rawData = [];
 		store.processedData = [];
-		store.unit = '°C';
-		store.threshold = { upper: 40, lower: 15 };
-		store.setting = { window: 10, intercept: 0, slope: 1 };
 		return store;
 	});
 }
