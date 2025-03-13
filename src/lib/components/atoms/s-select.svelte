@@ -10,11 +10,7 @@
 	}
 
 	let { children, value = $bindable(''), disabled, info, options }: SSelectProps = $props();
-	let visibility = $state('');
-
-	onMount(() => {
-		hide();
-	});
+	let visibility = $state('invisible opacity-0');
 
 	function show() {
 		visibility = 'visible opacity-100';
