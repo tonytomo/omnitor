@@ -40,4 +40,11 @@
 	>
 		<i class="ri-skip-down-fill"></i>
 	</SInput>
+	<SInput
+		bind:value={$record.setting.target}
+		disabled={$record.state === State.RUNNING}
+		info="Target value as a reference."
+	>
+		<i class="ri-focus-2-line"></i>
+	</SInput>
 </section>

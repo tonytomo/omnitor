@@ -1,15 +1,16 @@
-import { Process, State, type Record } from '$lib/types/record';
+import { Process, State, Status, type Record } from '$lib/types/record';
 import { get, writable } from 'svelte/store';
 
 const record = writable(<Record>{
-	state: State.STOPPED,
+	status: Status.DISCONNECTED,
+	state: State.IDLE,
 	name: '',
 	process: Process.RAW,
 	rawData: [],
 	processedData: [],
 	unit: '',
 	threshold: { upper: 0, lower: 0 },
-	setting: { window: 0, intercept: 0, slope: 0 }
+	setting: { window: 0, intercept: 0, slope: 0, target: 0 }
 });
 
 export default record;
@@ -52,6 +53,10 @@ export function getSlope() {
 	return get(record).setting.slope;
 }
 
+export function getTarget() {
+	return get(record).setting.target;
+}
+
 export function getUpperThreshold() {
 	return get(record).threshold.upper;
 }
@@ -76,7 +81,7 @@ export function setProcess(process: Process) {
 
 export function resetRecord() {
 	record.update((store) => {
-		store.state = State.STOPPED;
+		store.state = State.IDLE;
 		store.rawData = [];
 		store.processedData = [];
 		return store;

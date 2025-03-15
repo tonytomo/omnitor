@@ -1,7 +1,13 @@
+export enum Status {
+	CONNECTED = 'Connected',
+	CONNECTING = 'Connecting',
+	DISCONNECTED = 'Disconnected'
+}
+
 export enum State {
-	STOPPED,
-	RUNNING,
-	ERROR
+	IDLE = 'Idle',
+	RUNNING = 'Running',
+	ERROR = 'Error'
 }
 
 export enum Process {
@@ -12,6 +18,7 @@ export enum Process {
 }
 
 export interface Record {
+	status: Status;
 	state: State;
 	name: string;
 	process: Process;
@@ -31,4 +38,5 @@ export interface Setting {
 	window: number;
 	intercept: number;
 	slope: number;
+	target: number;
 }

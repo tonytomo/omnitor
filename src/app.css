@@ -39,14 +39,14 @@ Containers
 	@apply flex gap-2 border border-teal-900 bg-teal-950/50 p-2 text-2xl;
 }
 .tooltip {
-	@apply absolute top-[100%] left-0 z-50 flex w-3xs gap-2 border border-slate-600 bg-slate-800 p-2 text-left text-white transition-opacity;
+	@apply absolute top-[100%] left-1/2  z-50 flex w-3xs -translate-x-1/3 gap-2 border border-slate-600 bg-slate-800 p-2 text-left text-white transition-opacity;
 }
 
 /* 
 Inputs and Buttons
 */
 .form-container {
-	@apply col-span-1 grid grid-cols-1 gap-2 sm:grid-cols-2 md:col-span-2 xl:col-span-3 xl:grid-cols-4;
+	@apply col-span-1 grid grid-cols-1 gap-2 sm:grid-cols-2 md:col-span-2 xl:col-span-3 xl:grid-cols-5;
 }
 .form {
 	@apply flex text-sm;

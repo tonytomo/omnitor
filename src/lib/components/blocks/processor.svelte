@@ -1,6 +1,7 @@
 <script lang="ts">
 	import record from '$lib/stores/record-store';
 	import { State, Process } from '$lib/types/record';
+	import Button from '../atoms/button.svelte';
 	import SInput from '../atoms/s-input.svelte';
 	import SSelect from '../atoms/s-select.svelte';
 
@@ -42,4 +43,12 @@
 	>
 		<i class="ri-ruler-fill"></i>
 	</SInput>
+	<Button
+		ariaLabel="Go to tutorial"
+		color="btn-blue"
+		onClick={() => console.log('Go to tutorial')}
+		info="Learn more about the different processes."
+	>
+		<i class="ri-question-fill"></i>
+	</Button>
 </section>

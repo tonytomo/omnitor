@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { addLog } from '$lib/stores/log-store';
-	import { State } from '$lib/types/record';
+	import { State, Status } from '$lib/types/record';
 	import record, {
 		addRawData,
 		addProcessedData,
@@ -23,7 +23,7 @@
 	let focusIndex: number = 0;
 
 	async function listenCom() {
-		if ($record.state === State.STOPPED) return;
+		if ($record.state === State.IDLE) return;
 
 		const randomNumber = getRandomNumber();
 
@@ -65,14 +65,14 @@
 	}
 
 	function toggleRecord() {
-		if ($record.state === State.STOPPED) {
+		if ($record.state === State.IDLE) {
 			setState(State.RUNNING);
 			interval = setInterval(listenCom, 200);
 			addLog('Record started');
 		} else {
-			setState(State.STOPPED);
+			setState(State.IDLE);
 			clearInterval(interval);
-			addLog('Record stopped');
+			addLog('Record IDLE');
 		}
 	}
 </script>
@@ -133,11 +133,12 @@
 	</div>
 	<div class="flex gap-2">
 		<Button
-			ariaLabel={$record.state === State.STOPPED ? 'Run' : 'Halt'}
-			color={$record.state === State.STOPPED ? 'btn-green' : 'btn-red'}
+			disabled={$record.status !== Status.CONNECTED}
+			ariaLabel={$record.state === State.IDLE ? 'Run' : 'Halt'}
+			color={$record.state === State.IDLE ? 'btn-green' : 'btn-red'}
 			onClick={toggleRecord}
 		>
-			{#if $record.state === State.STOPPED}
+			{#if $record.state === State.IDLE}
 				<i class="ri-play-fill"></i>
 			{:else}
 				<i class="ri-stop-fill"></i>

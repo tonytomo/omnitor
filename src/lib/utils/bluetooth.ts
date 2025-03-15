@@ -67,7 +67,7 @@ async function listenToData(
 async function stopListening(characteristic: BluetoothRemoteGATTCharacteristic) {
 	try {
 		await characteristic.stopNotifications();
-		console.log('Notifications stopped');
+		console.log('Notifications IDLE');
 		characteristic.removeEventListener('characteristicvaluechanged', (event: Event) => {
 			console.log('Listener removed');
 		});
