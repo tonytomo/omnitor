@@ -23,7 +23,8 @@
 	</SSelect>
 	<SInput
 		bind:value={$record.setting.window}
-		disabled={$record.state === State.RUNNING || $record.process !== Process.MAVG}
+		disabled={$record.state === State.RUNNING ||
+			($record.process !== Process.MAVG && $record.process !== Process.MMED)}
 		info="The window size of the moving average or moving median."
 	>
 		<i class="ri-window-fill"></i>
