@@ -99,18 +99,12 @@
 		{/if}
 
 		{#if $record.mode === Mode.USB}
-			<SSelect bind:value={$device.port} options={PORT_OPTIONS}>
-				<i class="ri-usb-fill"></i>
-			</SSelect>
 			<SInput bind:value={$device.baudRate}>
 				<i class="ri-speed-line"></i>
 			</SInput>
 		{/if}
 
 		{#if $record.mode === Mode.BC}
-			<SSelect bind:value={$device.port} options={PORT_OPTIONS}>
-				<i class="ri-bluetooth-fill"></i>
-			</SSelect>
 			<SInput bind:value={$device.baudRate}>
 				<i class="ri-speed-line"></i>
 			</SInput>
