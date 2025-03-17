@@ -43,7 +43,7 @@
 			{:else if $record.mode === Mode.USB}
 				USB Mode
 			{:else if $record.mode === Mode.BC}
-				Bluetooth Classic Mode
+				Bluetooth Classic Mode <span class="text-slate-500">(Chrome Only)</span>
 			{:else}
 				Unknown Mode
 			{/if}
