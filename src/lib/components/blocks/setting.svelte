@@ -11,7 +11,7 @@
 	});
 </script>
 
-<section class="form-container">
+<section class="flex flex-1 flex-col gap-2">
 	<SInput
 		bind:value={$record.name}
 		disabled={$record.state === State.RUNNING}

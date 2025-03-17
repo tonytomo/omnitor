@@ -1,9 +1,10 @@
-import { Process, State, Status, type Record } from '$lib/types/record';
+import { Mode, Process, State, Status, type Record } from '$lib/types/record';
 import { get, writable } from 'svelte/store';
 
 const record = writable(<Record>{
 	status: Status.DISCONNECTED,
 	state: State.IDLE,
+	mode: Mode.BLE,
 	name: '',
 	process: Process.RAW,
 	rawData: [],

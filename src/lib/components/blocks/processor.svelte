@@ -1,7 +1,6 @@
 <script lang="ts">
 	import record from '$lib/stores/record-store';
 	import { State, Process } from '$lib/types/record';
-	import Button from '../atoms/button.svelte';
 	import SInput from '../atoms/s-input.svelte';
 	import SSelect from '../atoms/s-select.svelte';
 
@@ -13,7 +12,7 @@
 	];
 </script>
 
-<section class="form-container">
+<section class="flex flex-1 flex-col gap-2">
 	<SSelect
 		bind:value={$record.process}
 		disabled={$record.state === State.RUNNING}
@@ -43,12 +42,4 @@
 	>
 		<i class="ri-ruler-fill"></i>
 	</SInput>
-	<Button
-		ariaLabel="Go to tutorial"
-		color="btn-blue"
-		onClick={() => console.log('Go to tutorial')}
-		info="Learn more about the different processes."
-	>
-		<i class="ri-question-fill"></i>
-	</Button>
 </section>

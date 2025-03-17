@@ -10,6 +10,12 @@ export enum State {
 	ERROR = 'Error'
 }
 
+export enum Mode {
+	BLE = 'Bluetooth Low Energy',
+	USB = 'Universal Serial Bus',
+	BC = 'Bluetooth Classic'
+}
+
 export enum Process {
 	RAW = 'Raw Data',
 	MAVG = 'Moving Average',
@@ -20,6 +26,7 @@ export enum Process {
 export interface Record {
 	status: Status;
 	state: State;
+	mode: Mode;
 	name: string;
 	process: Process;
 	rawData: number[];

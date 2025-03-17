@@ -30,24 +30,24 @@ select::-ms-expand {
 Containers
 */
 .container-grid {
-	@apply container mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3;
+	@apply container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3;
+}
+.container-block-56 {
+	@apply relative flex h-56 flex-col border border-slate-800;
 }
 .container-block {
-	@apply relative flex h-56 flex-col border border-slate-800;
+	@apply relative col-span-1 flex flex-1 flex-col flex-wrap gap-2 border border-slate-800;
 }
 .box-info {
 	@apply flex gap-2 border border-teal-900 bg-teal-950/50 p-2 text-2xl;
 }
 .tooltip {
-	@apply absolute top-[100%] left-1/2  z-50 flex w-3xs -translate-x-1/3 gap-2 border border-slate-600 bg-slate-800 p-2 text-left text-white transition-opacity;
+	@apply absolute top-[100%] left-0 z-50 flex w-3xs gap-2 border border-slate-600 bg-slate-800 p-2 text-left text-white transition-opacity;
 }
 
 /* 
 Inputs and Buttons
 */
-.form-container {
-	@apply col-span-1 grid grid-cols-1 gap-2 sm:grid-cols-2 md:col-span-2 xl:col-span-3 xl:grid-cols-5;
-}
 .form {
 	@apply flex text-sm;
 }
@@ -55,10 +55,10 @@ Inputs and Buttons
 	@apply flex items-center bg-slate-800 px-2 py-1 text-lg;
 }
 .input {
-	@apply w-full border border-slate-800 bg-slate-950 px-4 py-1 text-sm text-white focus:border-slate-500 focus:outline-none disabled:cursor-not-allowed disabled:border-transparent disabled:bg-transparent disabled:text-slate-800 disabled:hover:bg-transparent;
+	@apply w-full border border-slate-800 bg-slate-950 px-4 py-1 text-sm text-white focus:border-slate-500 focus:outline-none disabled:cursor-not-allowed disabled:border-slate-900 disabled:bg-transparent disabled:text-slate-800 disabled:hover:bg-transparent;
 }
 .btn {
-	@apply cursor-pointer px-2 py-1 text-lg text-white focus:outline-none disabled:cursor-not-allowed disabled:border-transparent disabled:bg-transparent disabled:text-slate-800 disabled:hover:bg-transparent;
+	@apply cursor-pointer px-2 py-1 text-lg text-white focus:outline-none disabled:cursor-not-allowed disabled:border-slate-900 disabled:bg-transparent disabled:text-slate-800 disabled:hover:bg-transparent;
 }
 .btn-base {
 	@apply border border-slate-800 bg-slate-950/50 hover:bg-slate-900/50 focus:border-slate-500;
@@ -72,8 +72,23 @@ Inputs and Buttons
 .btn-blue {
 	@apply border border-blue-900 bg-blue-950/50 hover:bg-blue-900/50 focus:border-blue-500;
 }
+.btn-teal {
+	@apply border border-teal-900 bg-teal-950/50 hover:bg-teal-900/50 focus:border-teal-500;
+}
+.btn-purple {
+	@apply border border-purple-900 bg-purple-950/50 hover:bg-purple-900/50 focus:border-purple-500;
+}
+.btn-yellow {
+	@apply border border-yellow-900 bg-yellow-950/50 hover:bg-yellow-900/50 focus:border-yellow-500;
+}
+.btn-orange {
+	@apply border border-orange-900 bg-orange-950/50 hover:bg-orange-900/50 focus:border-orange-500;
+}
 .btn-info {
 	@apply relative border border-slate-800 bg-slate-950/50 text-sm text-slate-500 hover:bg-slate-900/50;
+}
+.btn-ghost {
+	@apply hover:bg-slate-900/50;
 }
 
 /*
@@ -95,7 +110,7 @@ Charts
 	@apply absolute right-0 bottom-0 flex h-full w-min items-end;
 }
 .chart-bar {
-	@apply bg-gradient-to-b from-0% to-transparent to-40%;
+	@apply cursor-pointer border-x border-t-4 border-x-slate-800 bg-gradient-to-b from-0% to-transparent to-40% hover:opacity-60;
 }
 .chart-legend {
 	@apply absolute right-1 bottom-1 p-2 text-xs;

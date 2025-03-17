@@ -1,26 +1,24 @@
 <script lang="ts">
 	import { addLog } from '$lib/stores/log-store';
 	import { State, Status } from '$lib/types/record';
+	import { toPercent, calculateTrend, getRandomNumber, processValue } from '$lib/utils/number';
+	import Button from '../atoms/button.svelte';
 	import record, {
 		addRawData,
 		addProcessedData,
 		setState,
 		resetRecord
 	} from '$lib/stores/record-store';
-	import { toPercent, calculateTrend, getRandomNumber, processValue } from '$lib/utils/number';
-	import Button from '../atoms/button.svelte';
-
-	const zooms = ['w-2', 'w-3', 'w-4', 'w-5', 'w-6', 'w-7', 'w-8', 'w-9', 'w-10', 'w-11', 'w-12'];
-	const rawFocus = ['opacity-100', 'opacity-100', 'opacity-10'];
-	const processFocus = ['opacity-100', 'opacity-10', 'opacity-100'];
+	import zooms from '$lib/constants/graph-zoom';
+	import { proc, raw } from '$lib/constants/graph-focus';
 
 	let index: number = 0;
 	let trend: number = 0;
 	let interval: number = 0;
 	let rawDataInPercent: number[] = [];
 	let processDataInPercent: number[] = [];
-	let zoomIndex: number = 5;
-	let focusIndex: number = 0;
+	let zoom: number = 5;
+	let focus: number = 0;
 
 	async function listenCom() {
 		if ($record.state === State.IDLE) return;
@@ -49,18 +47,18 @@
 	}
 
 	function toggleFocus() {
-		focusIndex = (focusIndex + 1) % 3;
+		focus = (focus + 1) % 3;
 	}
 
 	function zoomIn() {
-		if (zoomIndex < zooms.length - 1) {
-			zoomIndex++;
+		if (zoom < zooms.length - 1) {
+			zoom++;
 		}
 	}
 
 	function zoomOut() {
-		if (zoomIndex > 0) {
-			zoomIndex--;
+		if (zoom > 0) {
+			zoom--;
 		}
 	}
 
@@ -77,15 +75,13 @@
 	}
 </script>
 
-<section class="col-span-1 flex flex-col gap-2 xl:col-span-2">
-	<div class="container-block items-end justify-end pr-36">
+<section class="col-span-2 flex flex-col gap-2 xl:col-span-2">
+	<div class="container-block-56 items-end justify-end pr-36">
 		<div class="chart">
 			<div class="chart-container">
 				{#each $record.rawData as entry, i}
 					<div
-						class={zooms[zoomIndex] +
-							' chart-bar border-x border-t-4 border-slate-800 border-t-red-400 from-red-400/25 ' +
-							rawFocus[focusIndex]}
+						class={zooms[zoom] + ' chart-bar border-t-red-400 from-red-400/25 ' + raw[focus]}
 						style={`height: ${rawDataInPercent[i]}%`}
 					></div>
 				{/each}
@@ -93,9 +89,7 @@
 			<div class="chart-container">
 				{#each $record.processedData as entry, i}
 					<div
-						class={zooms[zoomIndex] +
-							' chart-bar cursor-pointer border-x  border-t-4 border-slate-800 border-t-blue-400 from-blue-400/25 hover:opacity-60 ' +
-							processFocus[focusIndex]}
+						class={zooms[zoom] + ' chart-bar border-t-blue-400 from-blue-400/25 ' + proc[focus]}
 						style={`height: ${processDataInPercent[i]}%`}
 					></div>
 				{/each}
@@ -121,11 +115,11 @@
 			<h2>Raw: {$record.rawData[index] || 0}{$record.unit}</h2>
 		</figure>
 		<figure class="chart-legend">
-			<figcaption class="text-red-400">
+			<figcaption class="text-red-400 {raw[focus]}">
 				<i class="ri-square-fill"></i>
 				Raw
 			</figcaption>
-			<figcaption class="text-blue-400">
+			<figcaption class="text-blue-400 {proc[focus]}">
 				<i class="ri-square-fill"></i>
 				Processed
 			</figcaption>
@@ -150,24 +144,16 @@
 		<Button ariaLabel="Zoom In" color="btn-base" onClick={zoomIn}>
 			<i class="ri-zoom-in-line"></i>
 		</Button>
-		<Button ariaLabel="Focus" color="btn-base" onClick={toggleFocus}>
+		<Button ariaLabel="Focus" color="btn-blue" onClick={toggleFocus}>
 			<i class="ri-focus-3-line"></i>
 		</Button>
 		<Button
 			ariaLabel="Delete"
-			disabled={$record.state === State.RUNNING}
+			disabled={$record.state === State.RUNNING || $record.status !== Status.CONNECTED}
 			color="btn-red"
 			onClick={resetAll}
 		>
 			<i class="ri-delete-bin-2-line"></i>
-		</Button>
-		<Button
-			ariaLabel="Export"
-			disabled={$record.state === State.RUNNING}
-			color="btn-blue"
-			onClick={() => console.log('Export')}
-		>
-			<i class="ri-download-2-line"></i>
 		</Button>
 	</div>
 </section>
