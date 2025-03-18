@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Toast from '$lib/components/atoms/toast.svelte';
-import Connect from '$lib/components/blocks/connect.svelte';
+	import Connect from '$lib/components/blocks/connect.svelte';
 	import Device from '$lib/components/blocks/device.svelte';
 	import Graph from '$lib/components/blocks/graph.svelte';
 	import Log from '$lib/components/blocks/log.svelte';
@@ -11,29 +11,37 @@ import Connect from '$lib/components/blocks/connect.svelte';
 	import { Process } from '$lib/types/record';
 	import { onMount } from 'svelte';
 
+	let isLoading = true;
+
 	onMount(() => {
 		$record.threshold = { upper: 40, lower: 15 };
 		$record.name = 'Temperature';
 		$record.unit = '°C';
 		$record.process = Process.RAW;
 		$record.setting = { window: 10, intercept: 0, slope: 1, target: 20 };
+		isLoading = false;
 	});
 </script>
 
-<main class="container-grid gap-2 px-4 py-10">
-	<div class="col-span-1 flex flex-col gap-2">
-		<Connect />
-		<Device />
-		<Stats />
-		<Log />
+{#if isLoading}
+	<div class="container-center">
+		<i class="ri-loader-2-line animate-spin text-6xl"></i>
 	</div>
-	<div class="col-span-1 flex flex-col gap-2 md:col-span-2">
-		<Graph />
-		<div class="flex flex-row gap-2">
-			<Setting />
-			<Processor />
+{:else}
+	<main class="container-grid gap-2 px-4 py-10">
+		<div class="col-span-1 flex flex-col gap-2">
+			<Connect />
+			<Device />
+			<Stats />
+			<Log />
 		</div>
-	</div>
-</main>
-
+		<div class="col-span-1 flex flex-col gap-2 md:col-span-2">
+			<Graph />
+			<div class="flex flex-row gap-2">
+				<Setting />
+				<Processor />
+			</div>
+		</div>
+	</main>
+{/if}
 <Toast />

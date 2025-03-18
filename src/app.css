@@ -29,6 +29,9 @@ select::-ms-expand {
 /*
 Containers
 */
+.container-center {
+	@apply container mx-auto flex h-svh items-center justify-center;
+}
 .container-grid {
 	@apply container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3;
 }

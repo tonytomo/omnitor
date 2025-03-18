@@ -129,7 +129,7 @@
 	</div>
 	<div class="flex gap-2">
 		<Button
-			disabled={$record.status === Status.CONNECTED}
+			disabled={$record.status !== Status.CONNECTED}
 			ariaLabel={$record.state === State.IDLE ? 'Run' : 'Halt'}
 			color={$record.state === State.IDLE ? 'btn-green' : 'btn-red'}
 			onClick={toggleRecord}
