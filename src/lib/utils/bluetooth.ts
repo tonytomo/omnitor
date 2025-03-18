@@ -1,5 +1,9 @@
+import device, { setBluetoothDevice, setBluetoothServer, setConnected } from '$lib/stores/device-store';
 import { addLog } from '$lib/stores/log-store';
+import { setStatus } from '$lib/stores/record-store';
 import { showToast } from '$lib/stores/toast-store';
+import { Status } from '$lib/types/record';
+import { get } from 'svelte/store';
 
 async function searchBluetoothDevices() {
 	try {
@@ -8,9 +12,15 @@ async function searchBluetoothDevices() {
 			optionalServices: ['battery_service']
 		});
 
+		if (!device) {
+			showToast('No Bluetooth device found', 'error');
+			return;
+		}
+
+		setBluetoothDevice(device);
 		showToast('Bluetooth device found', 'success');
 
-		return device;
+		await connectToDevice(device);
 	} catch (error) {
 		showToast('Error searching for devices', 'error');
 		console.error(error);
@@ -26,10 +36,34 @@ async function connectToDevice(device: BluetoothDevice) {
 			return;
 		}
 
+		setStatus(Status.CONNECTED);
+		setConnected(true);
+		setBluetoothServer(server);
+
 		showToast('Connected to server', 'success');
-		return server;
 	} catch (error) {
 		showToast('Error connecting to device', 'error');
+		console.error(error);
+	}
+}
+
+async function disconnectFromDevice() {
+	try {
+		const server = get(device).bleServ;
+
+		if (!server) {
+			showToast('No server found', 'error');
+			return;
+		}
+
+		setStatus(Status.DISCONNECTED);
+		setConnected(false);
+		setBluetoothServer(undefined);
+
+		server.disconnect();
+		showToast('Disconnected from server', 'success');
+	} catch (error) {
+		showToast('Error disconnecting from server', 'error');
 		console.error(error);
 	}
 }
@@ -91,4 +125,11 @@ async function stopListening(characteristic: BluetoothRemoteGATTCharacteristic) 
 	}
 }
 
-export { searchBluetoothDevices, connectToDevice, sendData, listenToData, stopListening };
+export {
+	searchBluetoothDevices,
+	connectToDevice,
+	disconnectFromDevice,
+	sendData,
+	listenToData,
+	stopListening
+};

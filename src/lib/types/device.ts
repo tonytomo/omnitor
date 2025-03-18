@@ -1,10 +1,9 @@
 export interface Device {
 	connected: boolean;
 	ble?: BluetoothDevice;
+	bleServ?: BluetoothRemoteGATTServer;
 	servUUID: string;
 	charUUID: string;
-	usb?: any;
-	bc?: any;
 	port?: SerialPort;
 	vendorId: number;
 	productId: number;

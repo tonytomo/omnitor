@@ -20,17 +20,10 @@
 		</Button>
 		<Button
 			ariaLabel="USB Mode"
-			color={$record.mode === Mode.USB ? 'btn-blue' : 'btn-base'}
-			onClick={() => handleMode(Mode.USB)}
+			color={$record.mode === Mode.USBBC ? 'btn-blue' : 'btn-base'}
+			onClick={() => handleMode(Mode.USBBC)}
 		>
 			<i class="ri-usb-line"></i>
-		</Button>
-		<Button
-			ariaLabel="BLE Mode"
-			color={$record.mode === Mode.BC ? 'btn-blue' : 'btn-base'}
-			onClick={() => handleMode(Mode.BC)}
-		>
-			<i class="ri-bluetooth-line"></i>
 		</Button>
 		<Button ariaLabel="Info" color="btn-ghost" onClick={() => console.log('Info')}>
 			<i class="ri-information-line"></i>
@@ -40,14 +33,20 @@
 		<h4 class="text-sm">
 			{#if $record.mode === Mode.BLE}
 				Bluetooth Low Energy Mode
-			{:else if $record.mode === Mode.USB}
-				USB Mode
-			{:else if $record.mode === Mode.BC}
-				Bluetooth Classic Mode <span class="text-slate-500">(Chrome Only)</span>
+			{:else if $record.mode === Mode.USBBC}
+				USB/Bluetooth Classic Mode
 			{:else}
 				Unknown Mode
 			{/if}
 		</h4>
-		<h4 class="text-slate-500">Device: {$device.connected ? $device.ble : 'None'}</h4>
+		<h4 class="text-slate-500">
+			{#if $device.bluetoothId}
+				Bluetooth: {$device.bluetoothId}
+			{:else if $device.vendorId}
+				USB: {$device.vendorId}
+			{:else}
+				Device: Unknown
+			{/if}
+		</h4>
 	</div>
 </section>

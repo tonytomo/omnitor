@@ -4,10 +4,9 @@ import { get, writable } from 'svelte/store';
 const device = writable(<Device>{
 	connected: false,
 	ble: undefined,
+	bleServ: undefined,
 	servUUID: '',
 	charUUID: '',
-	usb: undefined,
-	bc: undefined,
 	port: undefined,
 	vendorId: 0,
 	productId: 0,
@@ -17,18 +16,30 @@ const device = writable(<Device>{
 
 export default device;
 
-export function setPort(port: SerialPort) {
+export function setConnected(connected: boolean) {
 	device.update((store) => {
-		store.port = port;
-		store.connected = true;
+		store.connected = connected;
 		return store;
 	});
 }
 
-export function setBluetoothDevice(ble: BluetoothDevice) {
+export function setPort(port: SerialPort | undefined) {
+	device.update((store) => {
+		store.port = port;
+		return store;
+	});
+}
+
+export function setBluetoothDevice(ble: BluetoothDevice | undefined) {
 	device.update((store) => {
 		store.ble = ble;
-		store.connected = true;
+		return store;
+	});
+}
+
+export function setBluetoothServer(server: BluetoothRemoteGATTServer | undefined) {
+	device.update((store) => {
+		store.bleServ = server;
 		return store;
 	});
 }

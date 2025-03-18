@@ -1,6 +1,8 @@
-import device, { setBluetoothId, setPort, setUsbId } from '$lib/stores/device-store';
+import device, { setBluetoothId, setConnected, setPort, setUsbId } from '$lib/stores/device-store';
 import { addLog } from '$lib/stores/log-store';
+import { setStatus } from '$lib/stores/record-store';
 import { showToast } from '$lib/stores/toast-store';
+import { Status } from '$lib/types/record';
 import { get } from 'svelte/store';
 
 export async function connectToSerialDevice() {
@@ -10,10 +12,12 @@ export async function connectToSerialDevice() {
 		const port = await navigator.serial.requestPort();
 
 		if (!port) {
-			addLog('No serial port found');
+			showToast('No serial port can be connected', 'error');
 			return false;
 		}
 
+		setStatus(Status.CONNECTED);
+		setConnected(true);
 		setPort(port);
 
 		const portInfo = port.getInfo();
@@ -32,13 +36,37 @@ export async function connectToSerialDevice() {
 	}
 }
 
+export async function disconnectFromSerialDevice() {
+	try {
+		const port = get(device).port;
+
+		if (!port) {
+			showToast('No serial port can be disconnected', 'error');
+			return false;
+		}
+
+		setStatus(Status.DISCONNECTED);
+		setConnected(false);
+		setPort(undefined);
+		setBluetoothId(0);
+		setUsbId(0, 0);
+
+		await port.close();
+
+		showToast('Disconnected from serial device', 'success');
+	} catch (error) {
+		showToast('Error disconnecting from serial device', 'error');
+		console.error(error);
+	}
+}
+
 export async function listenToData() {
 	try {
 		const port = await navigator.serial.requestPort();
 		const reader = port.readable?.getReader();
 
 		if (!reader) {
-			addLog('No reader found');
+			showToast('Readable stream is not available', 'error');
 			return;
 		}
 
@@ -68,7 +96,8 @@ export async function sendData(data: Uint8Array) {
 				await writer.write(data);
 				addLog(new TextDecoder().decode(data));
 			} catch (error) {
-				console.error('Error sending data:', error);
+				showToast('Error sending data', 'error');
+				console.error(error);
 			} finally {
 				writer.releaseLock();
 			}

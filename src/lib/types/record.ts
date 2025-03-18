@@ -12,8 +12,7 @@ export enum State {
 
 export enum Mode {
 	BLE = 'Bluetooth Low Energy',
-	USB = 'Universal Serial Bus',
-	BC = 'Bluetooth Classic'
+	USBBC = 'USB/Bluetooth Classic'
 }
 
 export enum Process {

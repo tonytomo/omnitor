@@ -16,6 +16,13 @@ const record = writable(<Record>{
 
 export default record;
 
+export function setStatus(status: Status) {
+	record.update((store) => {
+		store.status = status;
+		return store;
+	});
+}
+
 export function getProcess() {
 	return get(record).process;
 }

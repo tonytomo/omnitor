@@ -1,12 +1,10 @@
 <script lang="ts">
 	import device from '$lib/stores/device-store';
-	import { addLog } from '$lib/stores/log-store';
 	import record from '$lib/stores/record-store';
-	import server from '$lib/stores/server-store';
 	import { showToast } from '$lib/stores/toast-store';
 	import { Mode, Status } from '$lib/types/record';
-	import { searchBluetoothDevices } from '$lib/utils/bluetooth';
-	import { connectToSerialDevice } from '$lib/utils/serial';
+	import { disconnectFromDevice, searchBluetoothDevices } from '$lib/utils/bluetooth';
+	import { connectToSerialDevice, disconnectFromSerialDevice } from '$lib/utils/serial';
 	import Button from '../atoms/button.svelte';
 	import SInput from '../atoms/s-input.svelte';
 
@@ -27,28 +25,16 @@
 	}
 
 	async function handleConnect() {
-		if ($record.status === Status.CONNECTED) {
-			$record.status = Status.DISCONNECTED;
+		console.log($device.connected);
+		if ($record.mode === Mode.BLE) {
+			if ($device.connected) await disconnectFromDevice();
+			else await searchBluetoothDevices();
 			return;
 		}
-
-		$record.status = Status.CONNECTING;
-
-		if ($record.mode === Mode.BLE) {
-			const bleDevice = await searchBluetoothDevices();
-			if (bleDevice) {
-				$device.ble = bleDevice;
-				$record.status = Status.CONNECTED;
-			} else {
-				$record.status = Status.DISCONNECTED;
-			}
-		} else {
-			const connected = await connectToSerialDevice();
-			if (connected) {
-				$record.status = Status.CONNECTED;
-			} else {
-				$record.status = Status.DISCONNECTED;
-			}
+		if ($record.mode === Mode.USBBC) {
+			if ($device.connected) await disconnectFromSerialDevice();
+			else await connectToSerialDevice();
+			return;
 		}
 	}
 </script>
@@ -80,13 +66,7 @@
 			</Button>
 		{/if}
 
-		{#if $record.mode === Mode.USB}
-			<SInput bind:value={$device.baudRate}>
-				<i class="ri-speed-line"></i>
-			</SInput>
-		{/if}
-
-		{#if $record.mode === Mode.BC}
+		{#if $record.mode === Mode.USBBC}
 			<SInput bind:value={$device.baudRate}>
 				<i class="ri-speed-line"></i>
 			</SInput>
