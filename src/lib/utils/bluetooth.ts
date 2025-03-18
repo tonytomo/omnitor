@@ -1,9 +1,29 @@
-import device, { setBluetoothDevice, setBluetoothServer, setConnected } from '$lib/stores/device-store';
+import device, {
+	setBleUUID,
+	setBluetoothDevice,
+	setBluetoothServer,
+	setConnected
+} from '$lib/stores/device-store';
 import { addLog } from '$lib/stores/log-store';
 import { setStatus } from '$lib/stores/record-store';
 import { showToast } from '$lib/stores/toast-store';
 import { Status } from '$lib/types/record';
 import { get } from 'svelte/store';
+
+async function generateUUID() {
+	const serverUuid = 'xxxxxxxx-0000-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+		const r = (Math.random() * 16) | 0;
+		const v = c === 'x' ? r : (r & 0x3) | 0x8;
+		return v.toString(16);
+	});
+	const charUuid = serverUuid.slice(0, 12) + '1' + serverUuid.slice(13);
+
+	setBleUUID(serverUuid, charUuid);
+	const uuid = `const char *serviceUuid = "${serverUuid}";\nconst char *charUuid = "${charUuid}";`;
+	navigator.clipboard.writeText(uuid);
+
+	showToast('UUID generated. Copy it to your code.', 'info');
+}
 
 async function searchBluetoothDevices() {
 	try {
@@ -29,20 +49,20 @@ async function searchBluetoothDevices() {
 
 async function connectToDevice(device: BluetoothDevice) {
 	try {
-		const server = await device.gatt?.connect();
+		const service = await device.gatt?.connect();
 
-		if (!server) {
-			showToast('Error connecting to server', 'error');
+		if (!service) {
+			showToast('Error connecting to service', 'error');
 			return;
 		}
 
 		setStatus(Status.CONNECTED);
 		setConnected(true);
-		setBluetoothServer(server);
+		setBluetoothServer(service);
 
-		showToast('Connected to server', 'success');
+		showToast('Connected to service', 'success');
 	} catch (error) {
-		showToast('Error connecting to device', 'error');
+		showToast('Error connecting to service', 'error');
 		console.error(error);
 	}
 }
@@ -126,6 +146,7 @@ async function stopListening(characteristic: BluetoothRemoteGATTCharacteristic) 
 }
 
 export {
+	generateUUID,
 	searchBluetoothDevices,
 	connectToDevice,
 	disconnectFromDevice,

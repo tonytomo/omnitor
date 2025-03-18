@@ -44,8 +44,12 @@
 				Bluetooth: {$device.bluetoothId}
 			{:else if $device.vendorId}
 				USB: {$device.vendorId}
+			{:else if $device.ble}
+				Service: {$device.servUUID}
+				<br />
+				Char: {$device.charUUID}
 			{:else}
-				Device: Unknown
+				No Device Connected
 			{/if}
 		</h4>
 	</div>
