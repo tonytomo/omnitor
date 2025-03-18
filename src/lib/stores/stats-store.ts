@@ -1,6 +1,7 @@
 import type { Stats } from '$lib/types/stats';
 import { writable } from 'svelte/store';
-import record, { getTarget } from './record-store';
+import record, { getProcessedData, getTarget } from './record-store';
+import { round } from '$lib/utils/number';
 
 const stats = writable(<Stats>{
 	total: 0,
@@ -15,17 +16,19 @@ const stats = writable(<Stats>{
 
 export default stats;
 
-export function calculateStats(data: number[]) {
+export function calculateStats() {
+	const data = getProcessedData();
+
 	stats.update(() => {
-		const total = data.length;
-		const mean = data.reduce((acc, val) => acc + val, 0) / total;
-		const max = Math.max(...data);
-		const min = Math.min(...data);
-		const variance = data.reduce((acc, val) => acc + (val - mean) ** 2, 0) / total;
-		const standardDeviation = Math.sqrt(variance);
-		const precision = standardDeviation / mean;
-		const target = getTarget();
-		const accuracy = (1 - Math.abs(mean - target) / target) * 100;
+		const total = round(data.length);
+		const mean = round(data.reduce((acc, val) => acc + val, 0) / total);
+		const max = round(Math.max(...data));
+		const min = round(Math.min(...data));
+		const variance = round(data.reduce((acc, val) => acc + (val - mean) ** 2, 0) / total);
+		const standardDeviation = round(Math.sqrt(variance));
+		const precision = round(standardDeviation / mean);
+		const target = round(getTarget());
+		const accuracy = round((1 - Math.abs(mean - target) / target) * 100);
 
 		return {
 			total,

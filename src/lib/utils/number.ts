@@ -10,6 +10,10 @@ import {
 } from '$lib/stores/record-store';
 import { Process } from '$lib/types/record';
 
+export function round(value: number) {
+	return Math.round(value * 10) / 10;
+}
+
 export function getRandomNumber() {
 	const min = getLowerThreshold();
 	const max = getUpperThreshold();

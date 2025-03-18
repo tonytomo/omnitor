@@ -1,5 +1,6 @@
 import { Mode, Process, State, Status, type Record } from '$lib/types/record';
 import { get, writable } from 'svelte/store';
+import { calculateStats } from './stats-store';
 
 const record = writable(<Record>{
 	status: Status.DISCONNECTED,
@@ -35,6 +36,7 @@ export function addRawData(data: number) {
 }
 
 export function addProcessedData(data: number) {
+	calculateStats();
 	record.update((store) => {
 		store.processedData.push(data);
 		return store;

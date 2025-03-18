@@ -11,7 +11,7 @@
 	} from '$lib/stores/record-store';
 	import { zooms, zoomsMap } from '$lib/constants/graph-zoom';
 	import { proc, raw } from '$lib/constants/graph-focus';
-	import Input from '../atoms/input.svelte';
+	import { calculateStats } from '$lib/stores/stats-store';
 
 	let index: number = 0;
 	let trend: number = 0;
@@ -41,6 +41,7 @@
 
 	function resetAll() {
 		resetRecord();
+		calculateStats();
 		rawDataInPercent = [];
 		processDataInPercent = [];
 		trend = 0;
@@ -71,7 +72,7 @@
 		} else {
 			setState(State.IDLE);
 			clearInterval(interval);
-			addLog('Record IDLE');
+			addLog('Record stopped');
 		}
 	}
 </script>
@@ -128,7 +129,7 @@
 	</div>
 	<div class="flex gap-2">
 		<Button
-			disabled={$record.status !== Status.CONNECTED}
+			disabled={$record.status === Status.CONNECTED}
 			ariaLabel={$record.state === State.IDLE ? 'Run' : 'Halt'}
 			color={$record.state === State.IDLE ? 'btn-green' : 'btn-red'}
 			onClick={toggleRecord}
