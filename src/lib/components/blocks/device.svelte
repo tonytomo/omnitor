@@ -9,7 +9,6 @@
 	import SInput from '../atoms/s-input.svelte';
 
 	async function handleConnect() {
-		console.log($device.connected);
 		if ($record.mode === Mode.BLE) {
 			if ($device.connected) await disconnectFromDevice();
 			else await searchBluetoothDevices();

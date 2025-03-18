@@ -12,6 +12,7 @@
 	import { zooms, zoomsMap } from '$lib/constants/graph-zoom';
 	import { proc, raw } from '$lib/constants/graph-focus';
 	import { calculateStats } from '$lib/stores/stats-store';
+	import device from '$lib/stores/device-store';
 
 	let index: number = 0;
 	let trend: number = 0;
@@ -129,7 +130,7 @@
 	</div>
 	<div class="flex gap-2">
 		<Button
-			disabled={$record.status !== Status.CONNECTED}
+			disabled={$record.status !== Status.CONNECTED || !!$device.port}
 			ariaLabel={$record.state === State.IDLE ? 'Run' : 'Halt'}
 			color={$record.state === State.IDLE ? 'btn-green' : 'btn-red'}
 			onClick={toggleRecord}
@@ -140,7 +141,7 @@
 				<i class="ri-stop-fill"></i>
 			{/if}
 		</Button>
-		<div class="flex flex-1">
+		<div class="flex flex-2 gap-2">
 			<Button ariaLabel="Zoom Out" color="btn-base" onClick={zoomOut}>
 				<i class="ri-zoom-out-line"></i>
 			</Button>

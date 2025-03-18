@@ -4,7 +4,7 @@
 		placeholder?: string;
 		onEnter: () => void;
 		value: string;
-		readonly: boolean;
+		readonly?: boolean;
 	}
 
 	let { name, placeholder, onEnter, value = $bindable(''), readonly }: InputProps = $props();

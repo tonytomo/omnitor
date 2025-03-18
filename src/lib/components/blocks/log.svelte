@@ -2,7 +2,7 @@
 	import { browser } from '$app/environment';
 	import logs, { addLog, clearLog } from '$lib/stores/log-store';
 	import { scrollIntoViewInsideElement } from '$lib/utils/dom';
-	import { formatISODate } from '$lib/utils/format';
+	import { formatHMS } from '$lib/utils/format';
 	import Button from '../atoms/button.svelte';
 	import Input from '../atoms/input.svelte';
 
@@ -25,11 +25,11 @@
 </script>
 
 <section class="col-span-1 flex flex-col gap-2">
-	<div class="container-block-56 justify-end bg-slate-900 py-2 pr-2 pl-4">
+	<div class="container-block-56 justify-end bg-slate-900 p-2">
 		<div class="log-container h-min overflow-y-auto">
 			{#each $logs as entry}
 				<p class="log font-mono text-xs">
-					<span class="text-slate-600">> {formatISODate(entry.datetime)} --></span>
+					<span class="text-slate-600">> {formatHMS(entry.datetime)} --></span>
 					{entry.message}
 				</p>
 			{/each}

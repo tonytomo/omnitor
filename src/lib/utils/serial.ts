@@ -60,11 +60,46 @@ export async function disconnectFromSerialDevice() {
 	}
 }
 
+export async function sendData(data: Uint8Array) {
+	try {
+		const port = get(device).port;
+
+		if (!port) {
+			showToast('No serial port available', 'error');
+			return;
+		}
+
+		const writer = port.writable?.getWriter();
+		if (writer) {
+			try {
+				await writer.write(data);
+				addLog(new TextDecoder().decode(data));
+			} catch (error) {
+				showToast('Error sending data', 'error');
+				console.error(error);
+			} finally {
+				writer.releaseLock();
+			}
+		} else {
+			showToast('Writable stream is not available', 'error');
+			console.error('Writable stream is not available');
+		}
+	} catch (error) {
+		showToast('Error sending data', 'error');
+		console.error(error);
+	}
+}
+
 export async function listenToData() {
 	try {
-		const port = await navigator.serial.requestPort();
-		const reader = port.readable?.getReader();
+		const port = get(device).port;
 
+		if (!port) {
+			showToast('No serial port available', 'error');
+			return;
+		}
+
+		const reader = port.readable?.getReader();
 		if (!reader) {
 			showToast('Readable stream is not available', 'error');
 			return;
@@ -83,30 +118,6 @@ export async function listenToData() {
 		}
 	} catch (error) {
 		showToast('Error listening to data', 'error');
-		console.error(error);
-	}
-}
-
-export async function sendData(data: Uint8Array) {
-	try {
-		const port = await navigator.serial.requestPort();
-		const writer = port.writable?.getWriter();
-		if (writer) {
-			try {
-				await writer.write(data);
-				addLog(new TextDecoder().decode(data));
-			} catch (error) {
-				showToast('Error sending data', 'error');
-				console.error(error);
-			} finally {
-				writer.releaseLock();
-			}
-		} else {
-			showToast('Writable stream is not available', 'error');
-			console.error('Writable stream is not available');
-		}
-	} catch (error) {
-		showToast('Error sending data', 'error');
 		console.error(error);
 	}
 }

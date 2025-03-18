@@ -10,7 +10,7 @@ import { showToast } from '$lib/stores/toast-store';
 import { Status } from '$lib/types/record';
 import { get } from 'svelte/store';
 
-async function generateUUID() {
+export async function generateUUID() {
 	const serverUuid = 'xxxxxxxx-0000-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
 		const r = (Math.random() * 16) | 0;
 		const v = c === 'x' ? r : (r & 0x3) | 0x8;
@@ -25,7 +25,7 @@ async function generateUUID() {
 	showToast('UUID generated. Copy it to your code.', 'info');
 }
 
-async function searchBluetoothDevices() {
+export async function searchBluetoothDevices() {
 	try {
 		const device = await navigator.bluetooth.requestDevice({
 			acceptAllDevices: true,
@@ -40,34 +40,41 @@ async function searchBluetoothDevices() {
 		setBluetoothDevice(device);
 		showToast('Bluetooth device found', 'success');
 
-		await connectToDevice(device);
+		await connectToDevice();
 	} catch (error) {
 		showToast('Error searching for devices', 'error');
 		console.error(error);
 	}
 }
 
-async function connectToDevice(device: BluetoothDevice) {
+export async function connectToDevice() {
 	try {
-		const service = await device.gatt?.connect();
+		const bleDevice = get(device).ble;
 
-		if (!service) {
-			showToast('Error connecting to service', 'error');
+		if (!bleDevice) {
+			showToast('No device found', 'error');
+			return;
+		}
+
+		const server = await bleDevice.gatt?.connect();
+
+		if (!server) {
+			showToast('Error connecting to server', 'error');
 			return;
 		}
 
 		setStatus(Status.CONNECTED);
 		setConnected(true);
-		setBluetoothServer(service);
+		setBluetoothServer(server);
 
-		showToast('Connected to service', 'success');
+		showToast('Connected to server', 'success');
 	} catch (error) {
-		showToast('Error connecting to service', 'error');
+		showToast('Error connecting to server', 'error');
 		console.error(error);
 	}
 }
 
-async function disconnectFromDevice() {
+export async function disconnectFromDevice() {
 	try {
 		const server = get(device).bleServ;
 
@@ -88,13 +95,17 @@ async function disconnectFromDevice() {
 	}
 }
 
-async function sendData(
-	server: BluetoothRemoteGATTServer,
-	serviceUUID: string,
-	characteristicUUID: string,
-	data: Uint8Array
-) {
+export async function sendData(data: Uint8Array) {
 	try {
+		const server = get(device).bleServ;
+		const serviceUUID = get(device).servUUID;
+		const characteristicUUID = get(device).charUUID;
+
+		if (!server) {
+			showToast('No server found', 'error');
+			return;
+		}
+
 		const service = await server.getPrimaryService(serviceUUID);
 		const characteristic = await service.getCharacteristic(characteristicUUID);
 		await characteristic.writeValue(data);
@@ -106,12 +117,17 @@ async function sendData(
 	}
 }
 
-async function listenToData(
-	server: BluetoothRemoteGATTServer,
-	serviceUUID: string,
-	characteristicUUID: string
-) {
+export async function listenToData() {
 	try {
+		const server = get(device).bleServ;
+		const serviceUUID = get(device).servUUID;
+		const characteristicUUID = get(device).charUUID;
+
+		if (!server) {
+			showToast('No server found', 'error');
+			return;
+		}
+
 		const service = await server.getPrimaryService(serviceUUID);
 		const characteristic = await service.getCharacteristic(characteristicUUID);
 
@@ -132,8 +148,20 @@ async function listenToData(
 	}
 }
 
-async function stopListening(characteristic: BluetoothRemoteGATTCharacteristic) {
+export async function stopListening() {
 	try {
+		const server = get(device).bleServ;
+		const serviceUUID = get(device).servUUID;
+		const characteristicUUID = get(device).charUUID;
+
+		if (!server) {
+			showToast('No server found', 'error');
+			return;
+		}
+
+		const service = await server.getPrimaryService(serviceUUID);
+		const characteristic = await service.getCharacteristic(characteristicUUID);
+
 		await characteristic.stopNotifications();
 		showToast('Stopped listening to data', 'info');
 		characteristic.removeEventListener('characteristicvaluechanged', (event: Event) => {
@@ -144,13 +172,3 @@ async function stopListening(characteristic: BluetoothRemoteGATTCharacteristic) 
 		console.error(error);
 	}
 }
-
-export {
-	generateUUID,
-	searchBluetoothDevices,
-	connectToDevice,
-	disconnectFromDevice,
-	sendData,
-	listenToData,
-	stopListening
-};

@@ -25,7 +25,7 @@
 		>
 			<i class="ri-usb-line"></i>
 		</Button>
-		<Button ariaLabel="Info" color="btn-ghost" onClick={() => console.log('Info')}>
+		<Button ariaLabel="Info" color="btn-ghost" onClick={() => {}}>
 			<i class="ri-information-line"></i>
 		</Button>
 	</div>

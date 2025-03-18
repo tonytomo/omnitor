@@ -8,3 +8,7 @@ export const formatISODate = (date: string) => {
 		second: 'numeric'
 	});
 };
+
+export const formatHMS = (date: string) => {
+	return date.substring(11, 19);
+}
