@@ -13,26 +13,26 @@
 	<div class="flex flex-row gap-2">
 		<Button
 			ariaLabel="BLE Mode"
-			color={$record.mode === Mode.BLE ? 'btn-blue' : 'btn-yellow'}
+			color={$record.mode === Mode.BLE ? 'btn-blue' : 'btn-base'}
 			onClick={() => handleMode(Mode.BLE)}
 		>
 			<i class="ri-bluetooth-connect-line"></i>
 		</Button>
 		<Button
 			ariaLabel="USB Mode"
-			color={$record.mode === Mode.USB ? 'btn-blue' : 'btn-yellow'}
+			color={$record.mode === Mode.USB ? 'btn-blue' : 'btn-base'}
 			onClick={() => handleMode(Mode.USB)}
 		>
 			<i class="ri-usb-line"></i>
 		</Button>
 		<Button
 			ariaLabel="BLE Mode"
-			color={$record.mode === Mode.BC ? 'btn-blue' : 'btn-yellow'}
+			color={$record.mode === Mode.BC ? 'btn-blue' : 'btn-base'}
 			onClick={() => handleMode(Mode.BC)}
 		>
 			<i class="ri-bluetooth-line"></i>
 		</Button>
-		<Button ariaLabel="Info" color="btn-base" onClick={() => console.log('Info')}>
+		<Button ariaLabel="Info" color="btn-ghost" onClick={() => console.log('Info')}>
 			<i class="ri-information-line"></i>
 		</Button>
 	</div>

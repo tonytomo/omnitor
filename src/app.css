@@ -45,6 +45,22 @@ Containers
 	@apply absolute top-[100%] left-0 z-50 flex w-3xs gap-2 border border-slate-600 bg-slate-800 p-2 text-left text-white transition-opacity;
 }
 
+/*
+Toast
+*/
+.toast {
+	@apply fixed bottom-8 left-8 flex animate-bounce gap-2 border px-4 py-2 text-sm;
+}
+.success {
+	@apply border-green-900 bg-green-950/50;
+}
+.error {
+	@apply border-red-900 bg-red-950/50;
+}
+.info {
+	@apply border-blue-900 bg-blue-950/50;
+}
+
 /* 
 Inputs and Buttons
 */
@@ -53,6 +69,9 @@ Inputs and Buttons
 }
 .form-label {
 	@apply flex items-center bg-slate-800 px-2 py-1 text-lg;
+}
+.small-input {
+	@apply w-12 border border-slate-800 bg-slate-950 p-1 text-center text-xs text-white focus:border-slate-500 focus:outline-none disabled:cursor-not-allowed disabled:border-slate-900 disabled:bg-transparent disabled:text-slate-800 disabled:hover:bg-transparent;
 }
 .input {
 	@apply w-full border border-slate-800 bg-slate-950 px-4 py-1 text-sm text-white focus:border-slate-500 focus:outline-none disabled:cursor-not-allowed disabled:border-slate-900 disabled:bg-transparent disabled:text-slate-800 disabled:hover:bg-transparent;

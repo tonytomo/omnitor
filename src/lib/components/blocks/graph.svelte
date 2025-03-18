@@ -9,8 +9,9 @@
 		setState,
 		resetRecord
 	} from '$lib/stores/record-store';
-	import zooms from '$lib/constants/graph-zoom';
+	import { zooms, zoomsMap } from '$lib/constants/graph-zoom';
 	import { proc, raw } from '$lib/constants/graph-focus';
+	import Input from '../atoms/input.svelte';
 
 	let index: number = 0;
 	let trend: number = 0;
@@ -138,12 +139,15 @@
 				<i class="ri-stop-fill"></i>
 			{/if}
 		</Button>
-		<Button ariaLabel="Zoom Out" color="btn-base" onClick={zoomOut}>
-			<i class="ri-zoom-out-line"></i>
-		</Button>
-		<Button ariaLabel="Zoom In" color="btn-base" onClick={zoomIn}>
-			<i class="ri-zoom-in-line"></i>
-		</Button>
+		<div class="flex flex-1">
+			<Button ariaLabel="Zoom Out" color="btn-base" onClick={zoomOut}>
+				<i class="ri-zoom-out-line"></i>
+			</Button>
+			<input readonly type="text" class="small-input" value={zoomsMap[zoom]} />
+			<Button ariaLabel="Zoom In" color="btn-base" onClick={zoomIn}>
+				<i class="ri-zoom-in-line"></i>
+			</Button>
+		</div>
 		<Button ariaLabel="Focus" color="btn-blue" onClick={toggleFocus}>
 			<i class="ri-focus-3-line"></i>
 		</Button>

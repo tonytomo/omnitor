@@ -5,6 +5,9 @@ export interface Device {
 	charUUID: string;
 	usb?: any;
 	bc?: any;
-	port: string;
+	port?: SerialPort;
+	vendorId: number;
+	productId: number;
+	bluetoothId: number;
 	baudRate: number;
 }

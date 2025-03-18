@@ -4,12 +4,14 @@
 		placeholder?: string;
 		onEnter: () => void;
 		value: string;
+		readonly: boolean;
 	}
 
-	let { name, placeholder, onEnter, value = $bindable('') }: InputProps = $props();
+	let { name, placeholder, onEnter, value = $bindable(''), readonly }: InputProps = $props();
 </script>
 
 <input
+	{readonly}
 	type="text"
 	class="input"
 	{name}

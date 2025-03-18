@@ -1,5 +1,6 @@
 <script lang="ts">
-	import Connect from '$lib/components/blocks/connect.svelte';
+	import Toast from '$lib/components/atoms/toast.svelte';
+import Connect from '$lib/components/blocks/connect.svelte';
 	import Device from '$lib/components/blocks/device.svelte';
 	import Graph from '$lib/components/blocks/graph.svelte';
 	import Log from '$lib/components/blocks/log.svelte';
@@ -34,3 +35,5 @@
 		</div>
 	</div>
 </main>
+
+<Toast />

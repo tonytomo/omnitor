@@ -1,23 +1,36 @@
+import { addLog } from '$lib/stores/log-store';
+import { showToast } from '$lib/stores/toast-store';
+
 async function searchBluetoothDevices() {
 	try {
 		const device = await navigator.bluetooth.requestDevice({
-			acceptAllDevices: true, // Show all nearby devices
-			optionalServices: ['battery_service'] // Specify required GATT services
+			acceptAllDevices: true,
+			optionalServices: ['battery_service']
 		});
-		console.log('Selected device:', device.name);
+
+		showToast('Bluetooth device found', 'success');
+
 		return device;
 	} catch (error) {
-		console.error('Error searching for devices:', error);
+		showToast('Error searching for devices', 'error');
+		console.error(error);
 	}
 }
 
 async function connectToDevice(device: BluetoothDevice) {
 	try {
 		const server = await device.gatt?.connect();
-		console.log('Connected to GATT server:', server);
+
+		if (!server) {
+			showToast('Error connecting to server', 'error');
+			return;
+		}
+
+		showToast('Connected to server', 'success');
 		return server;
 	} catch (error) {
-		console.error('Error connecting to device:', error);
+		showToast('Error connecting to device', 'error');
+		console.error(error);
 	}
 }
 
@@ -31,9 +44,11 @@ async function sendData(
 		const service = await server.getPrimaryService(serviceUUID);
 		const characteristic = await service.getCharacteristic(characteristicUUID);
 		await characteristic.writeValue(data);
-		console.log('Data sent:', data);
+
+		showToast('Data sent', 'success');
 	} catch (error) {
-		console.error('Error sending data:', error);
+		showToast('Error sending data', 'error');
+		console.error(error);
 	}
 }
 
@@ -46,33 +61,33 @@ async function listenToData(
 		const service = await server.getPrimaryService(serviceUUID);
 		const characteristic = await service.getCharacteristic(characteristicUUID);
 
-		// Enable notifications
 		await characteristic.startNotifications();
-		console.log('Notifications started');
+		showToast('Listening to data', 'info');
 
-		// Listen for new data
 		characteristic.addEventListener('characteristicvaluechanged', (event: Event) => {
 			const value = (event.target as BluetoothRemoteGATTCharacteristic).value;
 			if (value) {
 				const data = new TextDecoder().decode(value.buffer);
-				console.log('Received data:', data);
+				addLog(data);
 				// Process the received data here
 			}
 		});
 	} catch (error) {
-		console.error('Error setting up notifications:', error);
+		showToast('Error setting up notifications', 'error');
+		console.error(error);
 	}
 }
 
 async function stopListening(characteristic: BluetoothRemoteGATTCharacteristic) {
 	try {
 		await characteristic.stopNotifications();
-		console.log('Notifications IDLE');
+		showToast('Stopped listening to data', 'info');
 		characteristic.removeEventListener('characteristicvaluechanged', (event: Event) => {
-			console.log('Listener removed');
+			showToast('Listener removed', 'info');
 		});
 	} catch (error) {
-		console.error('Error stopping notifications:', error);
+		showToast('Error stopping notifications', 'error');
+		console.error(error);
 	}
 }
 
