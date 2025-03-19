@@ -1,0 +1,26 @@
+{
+	"name": "Omnitor",
+	"short_name": "Omnitor",
+	"start_url": "/omnitor/",
+	"display": "standalone",
+	"background_color": "#020617",
+	"theme_color": "#020617",
+	"description": "Omnitor - Monitor your sensors with ease",
+	"icons": [
+		{
+			"src": "pwa-64x64.png",
+			"type": "image/png",
+			"sizes": "64x64"
+		},
+		{
+			"src": "pwa-192x192.png",
+			"type": "image/png",
+			"sizes": "192x192"
+		},
+		{
+			"src": "pwa-512x512.png",
+			"type": "image/png",
+			"sizes": "512x512"
+		}
+	]
+}
