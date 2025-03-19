@@ -6,9 +6,17 @@ This project is for the communication between two devices using BLE (Bluetooth L
 
 ## Features
 
-- BLE communication [99%] - Chrome Desktop and Android
-- Bluetooth Classic communication [99%] - Chrome Desktop Only
-- USB Serial communication [99%] - Chrome Desktop Only
+- BLE communication [78%] - Chrome Desktop and Android
+- Bluetooth Classic communication [78%] - Chrome Desktop Only
+- USB Serial communication [78%] - Chrome Desktop Only
+
+## Tech
+
+- [SvelteKit](https://kit.svelte.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Web Serial API](https://web.dev/serial/)
+- [Web Bluetooth API](https://web.dev/bluetooth/)
 
 ## Installation
 
@@ -29,3 +37,8 @@ To start the project, run the following command:
 ```bash
 npm run dev -- --open
 ```
+
+## Note from the author
+
+This project is still under development. If you have any suggestions or improvements, please let me know. TBH, I haven't tested the USB Serial communication nor the Bluetooth communication yet. I don't have the hardware to test it. If you have the hardware, feel free to test it and let me know the result.
+ദ്ദി(ᵔᗜᵔ)

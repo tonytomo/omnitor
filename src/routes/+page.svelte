@@ -20,6 +20,14 @@
 	});
 </script>
 
+<svelte:head>
+	<title>Omnitor</title>
+	<meta
+		name="description"
+		content="Omnitor is a monitoring system that can record, process, and display data."
+	/>
+</svelte:head>
+
 <main class="container-grid gap-2 px-4 pt-8 pb-20 md:pb-8">
 	<div class="col-span-1 flex flex-col gap-2">
 		<Connect />

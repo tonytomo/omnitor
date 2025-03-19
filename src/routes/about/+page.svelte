@@ -31,11 +31,13 @@
 		<section class="block-content gap-2 p-8 text-sm">
 			<h2 class="text-xl font-bold">About the project</h2>
 			<p>
-				This project is created with urgency to help researchers and students in their research and
-				study. This can be used to monitor the data from the sensors and process the data to get the
-				desired result, such as the temperature of the room or the humidity of the soil, etc. This
-				can also be used to calibrate the sensors to get the accurate data. Therefore, this project
-				can be used by anyone who needs it.
+				This project is built to make research and learning more exciting! Use it to monitor sensor
+				data, process it for cool results like room temperature or soil humidity, and even calibrate
+				sensors for accuracy. It's a handy tool for anyone curious and creative!
+			</p>
+			<p>
+				This project is created using SvelteKit, Tailwind CSS, and Web API. The project is
+				open-source which also available on GitHub.
 			</p>
 			<div class="mx-auto flex w-min justify-center gap-2">
 				<Button
@@ -44,14 +46,6 @@
 					onClick={() => window.open('https://github.com/tonytomo/omnitor', '_blank')}
 				>
 					<i class="ri-github-fill"></i>
-				</Button>
-				<Button
-					ariaLabel="View documentation"
-					color="btn-teal"
-					onClick={() =>
-						window.open('https://github.com/tonytomo/omnitor/blob/main/DOCUMENTATION.md', '_blank')}
-				>
-					<i class="ri-book-open-fill"></i>
 				</Button>
 			</div>
 		</section>
