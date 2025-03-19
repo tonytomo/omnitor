@@ -22,7 +22,7 @@ jobs:
 
       - name: build
         env:
-          BASE_PATH: '/sim-quiz'
+          BASE_PATH: '/omnitor'
         run: |
           npm run build
 
