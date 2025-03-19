@@ -13,14 +13,14 @@
 	<div class="flex flex-row gap-2">
 		<Button
 			ariaLabel="BLE Mode"
-			color={$record.mode === Mode.BLE ? 'btn-blue' : 'btn-base'}
+			color={$record.mode === Mode.BLE ? 'btn-blue' : 'btn-base rounded-md'}
 			onClick={() => handleMode(Mode.BLE)}
 		>
 			<i class="ri-bluetooth-connect-line"></i>
 		</Button>
 		<Button
 			ariaLabel="USB Mode"
-			color={$record.mode === Mode.USBBC ? 'btn-blue' : 'btn-base'}
+			color={$record.mode === Mode.USBBC ? 'btn-blue' : 'btn-base rounded-md'}
 			onClick={() => handleMode(Mode.USBBC)}
 		>
 			<i class="ri-usb-line"></i>
@@ -34,7 +34,7 @@
 			{#if $record.mode === Mode.BLE}
 				Bluetooth Low Energy Mode
 			{:else if $record.mode === Mode.USBBC}
-				USB/Bluetooth Classic Mode
+				USB/Bluetooth Classic Mode (Chrome PC Only)
 			{:else}
 				Unknown Mode
 			{/if}

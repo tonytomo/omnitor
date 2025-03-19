@@ -141,12 +141,12 @@
 				<i class="ri-stop-fill"></i>
 			{/if}
 		</Button>
-		<div class="flex flex-2 gap-2">
-			<Button ariaLabel="Zoom Out" color="btn-base" onClick={zoomOut}>
+		<div class="flex flex-2">
+			<Button ariaLabel="Zoom Out" color="btn-base rounded-l-md" onClick={zoomOut}>
 				<i class="ri-zoom-out-line"></i>
 			</Button>
 			<input readonly type="text" class="small-input" value={zoomsMap[zoom]} />
-			<Button ariaLabel="Zoom In" color="btn-base" onClick={zoomIn}>
+			<Button ariaLabel="Zoom In" color="btn-base rounded-r-md" onClick={zoomIn}>
 				<i class="ri-zoom-in-line"></i>
 			</Button>
 		</div>

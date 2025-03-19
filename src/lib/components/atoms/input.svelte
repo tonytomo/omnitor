@@ -13,7 +13,7 @@
 <input
 	{readonly}
 	type="text"
-	class="input"
+	class="lone-input"
 	{name}
 	placeholder={placeholder || `Enter ${name}`}
 	autocomplete="off"

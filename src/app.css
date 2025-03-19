@@ -33,35 +33,35 @@ Containers
 	@apply container mx-auto flex h-svh items-center justify-center;
 }
 .container-grid {
-	@apply container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3;
+	@apply container mx-auto grid grid-cols-1 overflow-hidden sm:grid-cols-2 md:grid-cols-3;
 }
 .container-block-56 {
-	@apply relative flex h-56 flex-col border border-slate-800;
+	@apply relative flex h-56 flex-col rounded-md border border-slate-800;
 }
 .container-block {
-	@apply relative col-span-1 flex flex-1 flex-col flex-wrap gap-2 border border-slate-800;
+	@apply relative col-span-1 flex flex-1 flex-col flex-wrap gap-2 rounded-md border border-slate-800;
 }
 .box-info {
-	@apply flex gap-2 border border-teal-900 bg-teal-950/50 p-2 text-2xl;
+	@apply flex gap-2 rounded-md border border-teal-900 bg-teal-950/50 p-2 text-2xl;
 }
 .tooltip {
-	@apply absolute top-[100%] left-0 z-50 flex w-3xs gap-2 border border-slate-600 bg-slate-800 p-2 text-left text-white transition-opacity;
+	@apply absolute top-[100%] left-0 z-50 flex w-32 md:w-48 gap-2 rounded-md border border-slate-600 bg-slate-800 p-2 text-left text-white transition-opacity;
 }
 
 /*
 Toast
 */
 .toast {
-	@apply fixed bottom-8 left-8 flex animate-bounce gap-2 border px-4 py-2 text-sm;
+	@apply fixed bottom-8 left-8 flex animate-bounce gap-2 rounded-md border p-4 text-sm;
 }
 .success {
-	@apply border-green-900 bg-green-950/50;
+	@apply border-green-900 bg-green-950;
 }
 .error {
-	@apply border-red-900 bg-red-950/50;
+	@apply border-red-900 bg-red-950;
 }
 .info {
-	@apply border-blue-900 bg-blue-950/50;
+	@apply border-blue-900 bg-blue-950;
 }
 
 /* 
@@ -71,13 +71,16 @@ Inputs and Buttons
 	@apply flex text-sm;
 }
 .form-label {
-	@apply flex items-center bg-slate-800 px-2 py-1 text-lg;
+	@apply flex items-center rounded-l-md bg-slate-800 px-2 py-1 text-lg;
 }
 .small-input {
-	@apply w-12 border border-slate-800 bg-slate-950 p-1 text-center text-xs text-white focus:border-slate-500 focus:outline-none disabled:cursor-not-allowed disabled:border-slate-900 disabled:bg-transparent disabled:text-slate-800 disabled:hover:bg-transparent;
+	@apply w-12 border-y border-slate-800 bg-slate-950 p-1 text-center text-xs text-white focus:outline-none;
+}
+.lone-input {
+	@apply w-full rounded-md border border-slate-800 bg-slate-950 px-4 py-1 text-sm text-white focus:border-slate-500 focus:outline-none disabled:cursor-not-allowed disabled:border-slate-900 disabled:bg-transparent disabled:text-slate-800 disabled:hover:bg-transparent;
 }
 .input {
-	@apply w-full border border-slate-800 bg-slate-950 px-4 py-1 text-sm text-white focus:border-slate-500 focus:outline-none disabled:cursor-not-allowed disabled:border-slate-900 disabled:bg-transparent disabled:text-slate-800 disabled:hover:bg-transparent;
+	@apply w-full rounded-r-md border border-l-0 border-slate-800 bg-slate-950 px-4 py-1 text-sm text-white focus:border-slate-500 focus:outline-none disabled:cursor-not-allowed disabled:border-slate-900 disabled:bg-transparent disabled:text-slate-800 disabled:hover:bg-transparent;
 }
 .btn {
 	@apply cursor-pointer px-2 py-1 text-lg text-white focus:outline-none disabled:cursor-not-allowed disabled:border-slate-900 disabled:bg-transparent disabled:text-slate-800 disabled:hover:bg-transparent;
@@ -86,31 +89,58 @@ Inputs and Buttons
 	@apply border border-slate-800 bg-slate-950/50 hover:bg-slate-900/50 focus:border-slate-500;
 }
 .btn-green {
-	@apply border border-green-900 bg-green-950/50 hover:bg-green-900/50 focus:border-green-500;
+	@apply rounded-md border border-green-900 bg-green-950/50 hover:bg-green-900/50 focus:border-green-500;
 }
 .btn-red {
-	@apply border border-red-900 bg-red-950/50 hover:bg-red-900/50 focus:border-red-500;
+	@apply rounded-md border border-red-900 bg-red-950/50 hover:bg-red-900/50 focus:border-red-500;
 }
 .btn-blue {
-	@apply border border-blue-900 bg-blue-950/50 hover:bg-blue-900/50 focus:border-blue-500;
+	@apply rounded-md border border-blue-900 bg-blue-950/50 hover:bg-blue-900/50 focus:border-blue-500;
 }
 .btn-teal {
-	@apply border border-teal-900 bg-teal-950/50 hover:bg-teal-900/50 focus:border-teal-500;
+	@apply rounded-md border border-teal-900 bg-teal-950/50 hover:bg-teal-900/50 focus:border-teal-500;
 }
 .btn-purple {
-	@apply border border-purple-900 bg-purple-950/50 hover:bg-purple-900/50 focus:border-purple-500;
+	@apply rounded-md border border-purple-900 bg-purple-950/50 hover:bg-purple-900/50 focus:border-purple-500;
 }
 .btn-yellow {
-	@apply border border-yellow-900 bg-yellow-950/50 hover:bg-yellow-900/50 focus:border-yellow-500;
+	@apply rounded-md border border-yellow-900 bg-yellow-950/50 hover:bg-yellow-900/50 focus:border-yellow-500;
 }
 .btn-orange {
-	@apply border border-orange-900 bg-orange-950/50 hover:bg-orange-900/50 focus:border-orange-500;
+	@apply rounded-md border border-orange-900 bg-orange-950/50 hover:bg-orange-900/50 focus:border-orange-500;
 }
 .btn-info {
 	@apply relative border border-slate-800 bg-slate-950/50 text-sm text-slate-500 hover:bg-slate-900/50;
 }
 .btn-ghost {
 	@apply hover:bg-slate-900/50;
+}
+.btn-i-base {
+	@apply border border-r-0 border-slate-800 bg-slate-950/50 hover:bg-slate-900/50 focus:border-slate-500;
+}
+.btn-i-green {
+	@apply rounded-r-md border border-green-900 bg-green-950/50 hover:bg-green-900/50 focus:border-green-500;
+}
+.btn-i-red {
+	@apply rounded-r-md border border-red-900 bg-red-950/50 hover:bg-red-900/50 focus:border-red-500;
+}
+.btn-i-blue {
+	@apply rounded-r-md border border-blue-900 bg-blue-950/50 hover:bg-blue-900/50 focus:border-blue-500;
+}
+.btn-i-teal {
+	@apply rounded-r-md border border-teal-900 bg-teal-950/50 hover:bg-teal-900/50 focus:border-teal-500;
+}
+.btn-i-purple {
+	@apply rounded-r-md border border-purple-900 bg-purple-950/50 hover:bg-purple-900/50 focus:border-purple-500;
+}
+.btn-i-yellow {
+	@apply rounded-r-md border border-yellow-900 bg-yellow-950/50 hover:bg-yellow-900/50 focus:border-yellow-500;
+}
+.btn-i-orange {
+	@apply rounded-r-md border border-orange-900 bg-orange-950/50 hover:bg-orange-900/50 focus:border-orange-500;
+}
+.btn-i-info {
+	@apply relative border border-r-0 border-slate-800 bg-slate-950/50 text-sm text-slate-500 hover:bg-slate-900/50;
 }
 
 /*

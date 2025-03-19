@@ -19,7 +19,7 @@
 		info="The process to apply to the record."
 		{options}
 	>
-		<i class="ri-cpu-fill"></i>
+		<i class="ri-cpu-line"></i>
 	</SSelect>
 	<SInput
 		bind:value={$record.setting.window}

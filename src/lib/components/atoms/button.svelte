@@ -28,7 +28,7 @@
 
 {#if props.info}
 	<div class="flex flex-1">
-		<button aria-label="Info" class="btn btn-info" onclick={toggle} onblur={hide}>
+		<button aria-label="Info" class="btn btn-i-info rounded-l-md" onclick={toggle} onblur={hide}>
 			<i class="ri-information-2-line"></i>
 			<span class="tooltip {visibility}">
 				<i class="ri-information-2-line"></i>
@@ -38,7 +38,7 @@
 		<button
 			disabled={props.disabled}
 			aria-label={props.ariaLabel}
-			class={'btn flex-1 ' + props.color}
+			class="{props.color} btn flex-1"
 			onclick={props.onClick}
 		>
 			{@render props.children()}

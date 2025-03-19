@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { Process } from '$lib/types/record';
 	import Toast from '$lib/components/atoms/toast.svelte';
 	import Connect from '$lib/components/blocks/connect.svelte';
 	import Device from '$lib/components/blocks/device.svelte';
@@ -9,18 +10,17 @@
 	import Setting from '$lib/components/blocks/setting.svelte';
 	import Stats from '$lib/components/blocks/stats.svelte';
 	import record from '$lib/stores/record-store';
-	import { Process } from '$lib/types/record';
 
 	onMount(() => {
-		$record.threshold = { upper: 40, lower: 15 };
 		$record.name = 'Temperature';
 		$record.unit = '°C';
 		$record.process = Process.RAW;
+		$record.threshold = { upper: 40, lower: 15 };
 		$record.setting = { window: 10, intercept: 0, slope: 1, target: 20 };
 	});
 </script>
 
-<main class="container-grid gap-2 px-4 py-10">
+<main class="container-grid gap-2 px-4 pt-8 pb-20 md:pb-8">
 	<div class="col-span-1 flex flex-col gap-2">
 		<Connect />
 		<Device />

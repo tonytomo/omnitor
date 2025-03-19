@@ -27,8 +27,9 @@
 		<Button
 			disabled={$record.status === Status.CONNECTING}
 			ariaLabel="Connect"
-			color={$record.status === Status.CONNECTED ? 'btn-red' : 'btn-teal'}
+			color={$record.status === Status.CONNECTED ? 'btn-i-red' : 'btn-i-teal'}
 			onClick={handleConnect}
+			info="Connect to the device"
 		>
 			{#if $record.status === Status.DISCONNECTED}
 				<i class="ri-links-line"></i>
@@ -41,7 +42,7 @@
 		{#if $record.mode === Mode.BLE}
 			<Button
 				ariaLabel="Generate UUID"
-				color="btn-purple"
+				color="btn-i-purple"
 				onClick={generateUUID}
 				info="Generate UUID"
 			>
