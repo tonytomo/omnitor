@@ -1,9 +1,11 @@
-# Bluetooth Communication
+<img src="src/lib/assets/logo.webp" width="80" height="80"/>
 
-This project is for the communication between two devices using Bluetooth via BLE (Bluetooth Low Energy) and VCP (Virtual COM Port), and also USB Serial communication.
+# Omnitor
+
+This project is for the communication between two devices using BLE (Bluetooth Low Energy) and Bluetooth Classic, and also USB Serial communication.
 
 ## Features
 
-- BLE communication [Finished]
-- VCP communication [Not started] - Chrome Only
-- USB Serial communication [Not started]
+- BLE communication [99%] - Chrome Desktop and Android
+- Bluetooth Classic communication [99%] - Chrome Desktop Only
+- USB Serial communication [99%] - Chrome Desktop Only

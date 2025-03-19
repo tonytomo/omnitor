@@ -25,6 +25,9 @@ select {
 select::-ms-expand {
 	@apply hidden;
 }
+hr {
+	@apply border-slate-800;
+}
 
 /*
 Containers
@@ -35,17 +38,20 @@ Containers
 .container-grid {
 	@apply container mx-auto grid grid-cols-1 overflow-hidden sm:grid-cols-2 md:grid-cols-3;
 }
-.container-block-56 {
+.container-block {
+	@apply container mx-auto flex flex-col overflow-hidden;
+}
+.block-content-56 {
 	@apply relative flex h-56 flex-col rounded-md border border-slate-800;
 }
-.container-block {
-	@apply relative col-span-1 flex flex-1 flex-col flex-wrap gap-2 rounded-md border border-slate-800;
+.block-content {
+	@apply relative col-span-1 flex flex-1 flex-col flex-wrap rounded-md border border-slate-800;
 }
 .box-info {
 	@apply flex gap-2 rounded-md border border-teal-900 bg-teal-950/50 p-2 text-2xl;
 }
 .tooltip {
-	@apply absolute top-[100%] left-0 z-50 flex w-32 md:w-48 gap-2 rounded-md border border-slate-600 bg-slate-800 p-2 text-left text-white transition-opacity;
+	@apply absolute top-[100%] left-0 z-50 flex w-32 gap-2 rounded-md border border-slate-600 bg-slate-800 p-2 text-left text-white transition-opacity md:w-48;
 }
 
 /*
@@ -166,4 +172,14 @@ Charts
 }
 .chart-legend {
 	@apply absolute right-1 bottom-1 p-2 text-xs;
+}
+
+/*
+Text
+*/
+.guide {
+	@apply flex items-start gap-4 text-sm md:items-center;
+}
+.guide-element {
+	@apply mx-auto flex flex-1 items-center gap-2 rounded-md border border-slate-900 p-2;
 }

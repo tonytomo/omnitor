@@ -25,7 +25,7 @@
 </script>
 
 <section class="col-span-1 flex flex-col gap-2">
-	<div class="container-block-56 justify-end bg-slate-900 p-2">
+	<div class="block-content-56 justify-end bg-slate-900 p-2">
 		<div class="log-container h-min overflow-y-auto">
 			{#each $logs as entry}
 				<p class="log font-mono text-xs">

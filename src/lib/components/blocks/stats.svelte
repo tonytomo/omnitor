@@ -11,7 +11,7 @@
 </script>
 
 <section class="col-span-1 flex flex-col gap-2">
-	<div class="container-block p-2">
+	<div class="block-content gap-2 p-2">
 		<h4 class="text-sm">
 			<i class="ri-calculator-line"></i>
 			{$record.name} ({$record.unit})

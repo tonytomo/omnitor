@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
+	import { base } from '$app/paths';
 	import device from '$lib/stores/device-store';
 	import record from '$lib/stores/record-store';
 	import { Mode } from '$lib/types/record';
@@ -25,11 +27,11 @@
 		>
 			<i class="ri-usb-line"></i>
 		</Button>
-		<Button ariaLabel="Info" color="btn-ghost" onClick={() => {}}>
+		<Button ariaLabel="Info" color="btn-ghost" onClick={() => goto(base + '/about')}>
 			<i class="ri-information-line"></i>
 		</Button>
 	</div>
-	<div class="container-block p-2 text-xs">
+	<div class="block-content gap-2 p-2 text-xs">
 		<h4 class="text-sm">
 			{#if $record.mode === Mode.BLE}
 				Bluetooth Low Energy Mode

@@ -79,7 +79,7 @@
 </script>
 
 <section class="col-span-2 flex flex-col gap-2 xl:col-span-2">
-	<div class="container-block-56 items-end justify-end pr-36">
+	<div class="block-content-56 items-end justify-end pr-36">
 		<div class="chart">
 			<div class="chart-container">
 				{#each $record.rawData as entry, i}
