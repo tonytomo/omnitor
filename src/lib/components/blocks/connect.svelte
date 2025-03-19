@@ -36,7 +36,7 @@
 			{#if $record.mode === Mode.BLE}
 				Bluetooth Low Energy Mode
 			{:else if $record.mode === Mode.USBBC}
-				USB/Bluetooth Classic Mode (Chrome PC Only)
+				USB/Bluetooth Classic Mode (Chrome Desktop Only)
 			{:else}
 				Unknown Mode
 			{/if}
